@@ -1,0 +1,36 @@
+{
+  "name": "discord-utility",
+  "description": "A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ronak0020/discord-utility.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "utility",
+    "mongoose",
+    "mongodb",
+    "javascript",
+    "easy-discord",
+    "discord-utility"
+  ],
+  "author": "Ronak0020",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ronak0020/discord-utility/issues"
+  },
+  "homepage": "https://github.com/Ronak0020/discord-utility#readme",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "discord.js": "^12.5.3",
+    "figlet": "^1.5.0",
+    "mongoose": "^5.12.7"
+  }
+}
