@@ -1,11 +1,11 @@
 # Discord-Utility
 A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc.
-#### This module is still n development. If you encounter any bugs, feel free to open an issue ticket in github.
+#### This module is still in development. If you encounter any bugs, feel free to open an issue ticket in github.
 
-### Introdiction
+### Introduction
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easy to make.
 
-### Fatures
+### Features
 - Easy to use
 - Tons of premade functions to implement in your code easily
 - Includes Mongoose functions. Make bot using MongoDB easily
@@ -24,19 +24,19 @@ A package containing some basic and common yet important and useful utility func
 * [DiscordUtility.firstUpperCase()](https://github.com/Ronak0020/discord-utility#discordutilityfirstuppercase)
 * [DiscordUtility.formatNumber()](https://github.com/Ronak0020/discord-utility#discordutilityformatnumber)
 * [DiscordUtility.base64()](https://github.com/Ronak0020/discord-utility#discordutilitybase64)
-* [DiscordUtility.createHash()](https://github.com/Ronak0020/discord-utility#createhash)
-* [DiscordUtility.verify()](https://github.com/Ronak0020/discord-utility#verify)
-* [DiscordUtility.reactMessage()](https://github.com/Ronak0020/discord-utility#reactmessage)
-* [DiscordUtility.awaitPlayers()](https://github.com/Ronak0020/discord-utility#awaitplayers)
-* [DiscordUtility.formatBytes()](https://github.com/Ronak0020/discord-utility#formatbytes)
-* [DiscordUtility.promptMessage()](https://github.com/Ronak0020/discord-utility#promptmessage)
-* [DiscordUtility.getMember()](https://github.com/Ronak0020/discord-utility#getmember)
-* [DiscordUtility.getUser()](https://github.com/Ronak0020/discord-utility#getuser)
-* [DiscordUtility.createId()](https://github.com/Ronak0020/discord-utility#createid)
-* [DiscordUtility.generateRoman()](https://github.com/Ronak0020/discord-utility#generateroman)
-* [DiscordUtility.generateNumeral()](https://github.com/Ronak0020/discord-utility#generatenumeral)
-* [DiscordUtility.figlet()](https://github.com/Ronak0020/discord-utility#figlet)
-* [DiscordUtility.uptime()](https://github.com/Ronak0020/discord-utility#uptime)
+* [DiscordUtility.createHash()](https://github.com/Ronak0020/discord-utility#discordutilitycreatehash)
+* [DiscordUtility.verify()](https://github.com/Ronak0020/discord-utility#discordutilityverify)
+* [DiscordUtility.reactMessage()](https://github.com/Ronak0020/discord-utility#discordutilityreactmessage)
+* [DiscordUtility.awaitPlayers()](https://github.com/Ronak0020/discord-utility#discordutilityawaitplayers)
+* [DiscordUtility.formatBytes()](https://github.com/Ronak0020/discord-utility#discordutilityformatbytes)
+* [DiscordUtility.promptMessage()](https://github.com/Ronak0020/discord-utility#discordutilitypromptmessage)
+* [DiscordUtility.getMember()](https://github.com/Ronak0020/discord-utility#discordutilitygetmember)
+* [DiscordUtility.getUser()](https://github.com/Ronak0020/discord-utility#discordutilitygetuser)
+* [DiscordUtility.createId()](https://github.com/Ronak0020/discord-utility#discordutilitycreateid)
+* [DiscordUtility.generateRoman()](https://github.com/Ronak0020/discord-utility#discordutilitygenerateroman)
+* [DiscordUtility.generateNumeral()](https://github.com/Ronak0020/discord-utility#discordutilitygeneratenumeral)
+* [DiscordUtility.figlet()](https://github.com/Ronak0020/discord-utility#discordutilityfiglet)
+* [DiscordUtility.uptime()](https://github.com/Ronak0020/discord-utility#discordutilityuptime)
 
 ## Usage
 ### Installation
@@ -83,3 +83,82 @@ DiscordUtility.shorten(string, 15);
 DiscordUtility.randomNumber(10, 15);
 // returns 13
 ```
+
+#### DiscordUtility.trimArray()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array | Array | Array to trim |
+| maxLen | Number | Maximum length of array to return |
+
+##### Example
+```js
+let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"]
+DiscordUtility.trimArray(array, 5);
+// returns ["element1", "element2", "element3", "element4", "element5"]
+```
+
+#### DiscordUtility.shuffleArray()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array | Array | Array to shuffle |
+
+##### Example
+```js
+let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"]
+DiscordUtility.shuffleArray(array, 5);
+// returns ["element7", "element3", "element1", "element8", "element6", "element4", "element2", "element5"]
+```
+
+#### DiscordUtility.removeDuplicates()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array | Array | Array to remove duplicate elements from |
+
+##### Example
+```js
+let array = ["element1", "element1", "element2", "element3", "element4", "element4", "element4", "element5"]
+DiscordUtility.shuffleArray(array, 5);
+// returns ["element1", "element2", "element3", "element4", "element5"]
+```
+
+#### DiscordUtility.list()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array | Array | Array to shuffle |
+| conj | String | Conjuction to join last two elements with. Default: "and" |
+
+##### Example
+```js
+let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"]
+DiscordUtility.list(array, "lastly");
+// returns "element1, element2, element3, element4, element5, element6, element7 lastly element8"
+```
+
+#### DiscordUtility.sortByName()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array | Array | Array to sort element of |
+
+##### Example
+```js
+let array = ["Shander", "Luffy", "Kaneki", "Ronak"]
+DiscordUtility.shuffleArray(array, 5);
+// returns ["Kaneki", "Luffy", "Ronak", "Shander"]
+```
+
+#### DiscordUtility.firstUpperCase()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| text | String | String to convert each word's first letter UPPERCASE |
+| split | String | Optional. Split the string to convert word's first letter UPPERCASE Default: " " |
+
+##### Example
+```js
+let string = "this is a test string";
+//If you want to convert elemtns of array to uppercase
+//Change the "string" value to <Array>.join(" ");
+DiscordUtility.firstUpperCase(string);
+// returns "This Is A Test String"
+```
+
+# More Information Will Be released soon. Please Be Patient. Thank you!
