@@ -192,7 +192,7 @@ module.exports = class DiscordUtility {
      * @returns Promise<MessageReaction>
      */
 
-    static async reactIfAble(message, user, emoji, fallbackEmoji = "✅") {
+    static async reactMessage(message, user, emoji, fallbackEmoji = "✅") {
         const dm = !message.guild;
         if (fallbackEmoji && (!dm && !message.channel.permissionsFor(user).has('USE_EXTERNAL_EMOJIS'))) {
             emoji = fallbackEmoji;
@@ -406,6 +406,12 @@ module.exports = class DiscordUtility {
         let seconds = Math.floor(totalSeconds % 60);
         return `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
     }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▲━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    //  ━━━━━━━━━━━━━━━━━━ MONGOOSE FUNCTION ━━━━━━━━━━━━━━━━━━
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▼━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
 
     /**
      * Connect to your MongoDB database/Cluster
