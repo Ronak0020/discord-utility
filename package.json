@@ -1,5 +1,5 @@
 {
-  "name": "@ronak0020/discord-utility",
+  "name": "utils-discord",
   "description": "A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc.",
   "version": "1.0.0",
   "main": "index.js",
