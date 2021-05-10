@@ -117,7 +117,7 @@ DiscordUtility.shuffleArray(array, 5);
 ##### Example
 ```js
 let array = ["element1", "element1", "element2", "element3", "element4", "element4", "element4", "element5"]
-DiscordUtility.shuffleArray(array, 5);
+DiscordUtility.removeDuplicates(array);
 // returns ["element1", "element2", "element3", "element4", "element5"]
 ```
 
@@ -142,7 +142,7 @@ DiscordUtility.list(array, "lastly");
 ##### Example
 ```js
 let array = ["Shander", "Luffy", "Kaneki", "Ronak"]
-DiscordUtility.shuffleArray(array, 5);
+DiscordUtility.sortByName(array);
 // returns ["Kaneki", "Luffy", "Ronak", "Shander"]
 ```
 
