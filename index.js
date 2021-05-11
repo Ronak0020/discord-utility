@@ -135,7 +135,7 @@ module.exports = class DiscordUtility {
     }
 
     /**
-     * Encode String to binary or Decode binary to normal string.
+     * Encode String or Decode to normal string.
      * @param {String} text String to encode/decode
      * @param {String} mode (Optional) Mode of action. Either 'encode' or 'decode'. Default: 'encode'
      * @returns Encoded/Decoded String
@@ -160,8 +160,8 @@ module.exports = class DiscordUtility {
 
     /**
      * Make a text-based cerification.
-     * @param {Discord.Channel} channel 
-     * @param {Discord.User} user 
+     * @param {Discord.Channel} channel Channel to create verification in
+     * @param {Discord.User} user Discord.User who needs to verify
      * @param {Object} options (Optional) { time: The time for verification to last (in milliseconds) }
      * @returns Boolean? Whether verification was "yes" (true) or "no" (false)
      */

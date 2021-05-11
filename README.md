@@ -1,3 +1,10 @@
+<div align="center">
+    <p>
+        <a href="https://nodei.co/npm/utils-discord/"><img src="https://nodei.co/npm/utils-discord.png?downloads=true&stars=true" alt="npm installnfo" /></a>
+    </p>
+</div>
+
+
 # Discord-Utility
 A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc.
 #### This module is still in development. If you encounter any bugs, feel free to open an issue ticket in github.
@@ -13,30 +20,30 @@ A package containing some basic and common yet important and useful utility func
 - Support always available!
 
 ### Functions List
-* [DiscordUtility.delay()](https://github.com/Ronak0020/discord-utility#discordutilitydelay)
-* [DiscordUtility.shorten()](https://github.com/Ronak0020/discord-utility#discordutilityshorten)
-* [DiscordUtility.randomNumber()](https://github.com/Ronak0020/discord-utility#discordutilityrandomNumber)
-* [DiscordUtility.trimArray()](https://github.com/Ronak0020/discord-utility#discordutilitytrimarray)
-* [DiscordUtility.shuffleArray()](https://github.com/Ronak0020/discord-utility#discordutilityshufflearray)
-* [DiscordUtility.removeDuplicates()](https://github.com/Ronak0020/discord-utility#discordutilityremoveDuplicates)
-* [DiscordUtility.list()](https://github.com/Ronak0020/discord-utility#discordutilitylist)
-* [DiscordUtility.sortByName()](https://github.com/Ronak0020/discord-utility#discordutilitysortbyname)
-* [DiscordUtility.firstUpperCase()](https://github.com/Ronak0020/discord-utility#discordutilityfirstuppercase)
-* [DiscordUtility.formatNumber()](https://github.com/Ronak0020/discord-utility#discordutilityformatnumber)
-* [DiscordUtility.base64()](https://github.com/Ronak0020/discord-utility#discordutilitybase64)
-* [DiscordUtility.createHash()](https://github.com/Ronak0020/discord-utility#discordutilitycreatehash)
-* [DiscordUtility.verify()](https://github.com/Ronak0020/discord-utility#discordutilityverify)
-* [DiscordUtility.reactMessage()](https://github.com/Ronak0020/discord-utility#discordutilityreactmessage)
-* [DiscordUtility.awaitPlayers()](https://github.com/Ronak0020/discord-utility#discordutilityawaitplayers)
-* [DiscordUtility.formatBytes()](https://github.com/Ronak0020/discord-utility#discordutilityformatbytes)
-* [DiscordUtility.promptMessage()](https://github.com/Ronak0020/discord-utility#discordutilitypromptmessage)
-* [DiscordUtility.getMember()](https://github.com/Ronak0020/discord-utility#discordutilitygetmember)
-* [DiscordUtility.getUser()](https://github.com/Ronak0020/discord-utility#discordutilitygetuser)
-* [DiscordUtility.createId()](https://github.com/Ronak0020/discord-utility#discordutilitycreateid)
-* [DiscordUtility.generateRoman()](https://github.com/Ronak0020/discord-utility#discordutilitygenerateroman)
-* [DiscordUtility.generateNumeral()](https://github.com/Ronak0020/discord-utility#discordutilitygeneratenumeral)
-* [DiscordUtility.figlet()](https://github.com/Ronak0020/discord-utility#discordutilityfiglet)
-* [DiscordUtility.uptime()](https://github.com/Ronak0020/discord-utility#discordutilityuptime)
+* [DiscordUtility.delay()](#discordutilitydelay)
+* [DiscordUtility.shorten()](#discordutilityshorten)
+* [DiscordUtility.randomNumber()](#discordutilityrandomNumber)
+* [DiscordUtility.trimArray()](#discordutilitytrimarray)
+* [DiscordUtility.shuffleArray()](#discordutilityshufflearray)
+* [DiscordUtility.removeDuplicates()](#discordutilityremoveDuplicates)
+* [DiscordUtility.list()](#discordutilitylist)
+* [DiscordUtility.sortByName()](#discordutilitysortbyname)
+* [DiscordUtility.firstUpperCase()](#discordutilityfirstuppercase)
+* [DiscordUtility.formatNumber()](#discordutilityformatnumber)
+* [DiscordUtility.base64()](#discordutilitybase64)
+* [DiscordUtility.createHash()](#discordutilitycreatehash)
+* [DiscordUtility.verify()](#discordutilityverify)
+* [DiscordUtility.reactMessage()](#discordutilityreactmessage)
+* [DiscordUtility.awaitPlayers()](#discordutilityawaitplayers)
+* [DiscordUtility.formatBytes()](#discordutilityformatbytes)
+* [DiscordUtility.promptMessage()](#discordutilitypromptmessage)
+* [DiscordUtility.getMember()](#discordutilitygetmember)
+* [DiscordUtility.getUser()](#discordutilitygetuser)
+* [DiscordUtility.createId()](#discordutilitycreateid)
+* [DiscordUtility.generateRoman()](#discordutilitygenerateroman)
+* [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
+* [DiscordUtility.figlet()](#discordutilityfiglet)
+* [DiscordUtility.uptime()](#discordutilityuptime)
 
 ## Usage
 ### Installation
@@ -159,6 +166,106 @@ let string = "this is a test string";
 //Change the "string" value to <Array>.join(" ");
 DiscordUtility.firstUpperCase(string);
 // returns "This Is A Test String"
+```
+
+#### DiscordUtility.formatNumber()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| number | Number | Number to format |
+| minimumFractionDigits | Number | Optional. Minimum fraction digits to format to. Default: 2 |
+
+##### Example
+```js
+let number = 2967.5779;
+DiscordUtility.formatNumber(number);
+// returns 2967.58
+//To get more decimal digits, simply add the number of digits you want after "number" DiscordUtility.formatNumber(number, 4)
+//(for 4 decimal digits)
+```
+
+#### DiscordUtility.base64()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| text | String | text to convert in base64 format. |
+| mode | String | Optional. Whether to "encode" or "decode". Default: "encode" |
+
+##### Example
+```js
+let string = "My name is ronak";
+DiscordUtility.base64(string);
+//returns "TXkgbmFtZSBpcyByb25haw=="
+
+//To decode
+let decodeString = "TXkgbmFtZSBpcyByb25haw==";
+DiscordUtility.base64(decodeString, "decode");
+//returns "My name is ronak"
+```
+
+#### DiscordUtility.createHash()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| text | String | text to convert in base64 format. |
+| mode | String | Optional. Whether to "encode" or "decode". Default: "encode" |
+
+##### Example
+```js
+let string = "Password";
+DiscordUtility.createHash(string, "sha256");
+//returns "e7cf3ef4f17c3999a94f2c6f612e8a888e5b1026878e4e19398b23bd38ec221a"
+```
+
+#### DiscordUtility.verify()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| channel | Discord.Message | Channel to create verification in. |
+| user | Discord.User | Discord.User who is needs to verify. |
+| options | Object | Optional. Desired time for the verification to last, extra "yes" and "no" (Array) |
+
+##### Example
+```js
+let channel = message.channel;
+let user = message.mentions.users.first();
+
+DiscordUtility.verify(channel, user);
+//returns true (If user sends "yes/y/ye/yeah") else false (if user sends "no/n/nah" or time ends)
+```
+
+#### DiscordUtility.reactMessage()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| message | Discord.Message | Message to react on. |
+| user | Discord.ClientUser | Discord.ClientUser. |
+| emoji | String | Emoji to react with |
+| fallbackEmoji | String | Optional. Fall back emoji, if main emoji not found, react with it. Default: "✅" |
+
+##### Example
+```js
+let message = await message.channel.messages.fetch("message-id");
+let user = client.user;
+let emoji = "custom-emoji-id";
+
+DiscordUtility.reactMessage(message, user, emoji);
+//returns Promise<MessageReaction>
+```
+
+#### DiscordUtility.awaitPlayers()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| msg | Discord.Message | Your Discord.Message |
+| join | String | String that will be used for joining the queue |
+| emoji | String | Emoji to react with once a user has been allowed to join the queue |
+| max | Number | Maximum number of users that can join a queue |
+| min | Number | Optional. Minimum number of users required for the queue. Default: 1 |
+
+##### Example
+```js
+let msg = message;
+let join = "join game";
+let emoji = "custom-emoji-id";
+let max = 5
+
+DiscordUtility.awaitPlayers(msg, join, emoji, max);
+//returns false (if not reached the minimum player req) else Array of player IDs who have joined.
 ```
 
 # More Information Will Be released soon. Please Be Patient. Thank you!
