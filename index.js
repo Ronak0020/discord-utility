@@ -375,14 +375,11 @@ module.exports = class DiscordUtility {
 
     /**
      * Convert normal texts into Figlet Texts
-     * @param {Discord.Message} message Discord.Message
      * @param {String} string String to convert into figlet text
      * @returns Converted String
      */
 
-    static figlet(message, string) {
-        let maxLen = 12;
-        if (string.length > maxLen) return message.reply("Only 12 characters are admitted!");
+    static figlet(string) {
         figlet(`${string}`, function (err, data) {
             if (err) {
                 return false;
@@ -393,12 +390,12 @@ module.exports = class DiscordUtility {
 
     /**
      * Format your discord client's uptime in Days Hours Minutes Seconds
-     * @param {Number} uptime Discord.Client.uptime
-     * @returns Uptime String as days, hours, minutes and seconds
+     * @param {Number} unicode Duration Unicode to convert
+     * @returns Duration String as days, hours, minutes and seconds
      */
 
-    static uptime(uptime) {
-        let totalSeconds = (uptime / 1000);
+    static formatDays(unicode) {
+        let totalSeconds = (unicode / 1000);
         let days = Math.floor(totalSeconds / 86400);
         let hours = Math.floor(totalSeconds / 60 / 60 % 24);
         totalSeconds %= 3600;

@@ -205,7 +205,7 @@ DiscordUtility.base64(decodeString, "decode");
 | Parameter | Type | Description |
 | --- | --- | --- |
 | text | String | text to convert in base64 format. |
-| mode | String | Optional. Whether to "encode" or "decode". Default: "encode" |
+| algorithm | String | What algorythm to use for the conversion |
 
 ##### Example
 ```js
@@ -268,4 +268,126 @@ DiscordUtility.awaitPlayers(msg, join, emoji, max);
 //returns false (if not reached the minimum player req) else Array of player IDs who have joined.
 ```
 
-# More Information Will Be released soon. Please Be Patient. Thank you!
+#### DiscordUtility.formatBytes()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| bytes | Number | Byte to format. |
+
+##### Example
+```js
+let bytes = 1537693;
+DiscordUtility.formatBytes(bytes);
+// returns "1.47 MB"
+```
+
+#### DiscordUtility.promptMessage()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| message | Discord.Message | Discord.Message. |
+| author | Discord.User | Author of message OR who needs to verify. |
+| time | Number | Time the verification will last for in SECONDS |
+| validReactions | Array | Array of reactions to create verifications for. |
+
+##### Example
+```js
+let message = message;
+let author = message.author;
+let time = 30;
+let validReactions = ["✅", "❌"];
+
+DiscordUtility.promptMessage(message, author, time, validReactions).then(async(emoji) => {
+    if(emoji === ""✅) {
+        //do something
+    } else if(emoji === "❌") {
+        //do something
+    }
+});
+//returns emoji the AUTHOR reacted with
+```
+
+#### DiscordUtility.getMember()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| message | Discord.Message | Discord.Message. |
+| toFind | String | Find member with this data. |
+
+##### Example
+```js
+let message = message;
+let toFind = message.content.slice(prefix.length).trim().split(" ").slice(1).join(" "); //Use your "args" if you have defined that.
+DiscordUtility.getMember(message, toFind);
+//returns Discord.GuildMember
+```
+
+#### DiscordUtility.getUser()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| client | Discord.Client | Your bot client. |
+| message | Discord.Message | Discord.Message. |
+| toFind | String | Find member with this data. |
+
+##### Example
+```js
+let client = new Discord.Client();
+let message = message;
+let toFind = message.content.slice(prefix.length).trim().split(" ").slice(1).join(" "); //Use your "args" if you have defined that.
+DiscordUtility.getUser(client, message, toFind);
+//returns Discord.User
+```
+
+#### DiscordUtility.createId()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| length | Number | Optional. The length of id. Default: 4 |
+
+##### Example
+```js
+DiscordUtility.makeId()
+//returns "g5a8"
+```
+
+#### DiscordUtility.generateRoman()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| num | Number | Number to convert into roman digits |
+
+##### Example
+```js
+DiscordUtility.generateRoman(20)
+//returns "XX"
+```
+
+#### DiscordUtility.generateNumeral()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| roman | String | Roman Number to convert into arabic digits |
+
+##### Example
+```js
+DiscordUtility.generateNumeral("XLII")
+//returns 42
+```
+
+#### DiscordUtility.figlet()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| string | String | String to convert into Figlet text |
+
+##### Example
+```js
+DiscordUtility.figlet("Ronak")
+//returns 42
+```
+
+#### DiscordUtility.formatDays()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| unicode | Number | Duration unicode to convert into Days, Hours, Minutes and seconds |
+
+##### Example
+```js
+DiscordUtility.formatDays(264860372)
+//returns "3 days, 1 hours, 34 minutes and 20 seconds"
+```
+
+# Mongoose Functions Documentations Will Be released soon. Please Be Patient. Thank you!
