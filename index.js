@@ -405,7 +405,7 @@ module.exports = class DiscordUtility {
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▲━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    //  ━━━━━━━━━━━━━━━━━━ MONGOOSE FUNCTION ━━━━━━━━━━━━━━━━━━
+    // ━━━━━━━━━━━━━━━━━━ MONGOOSE FUNCTION ━━━━━━━━━━━━━━━━━━
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▼━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
@@ -459,14 +459,13 @@ module.exports = class DiscordUtility {
      * Update a collection in your MongoDB database.
      * @param {mongoose.Schema} schema Your schema to uodate the data in.
      * @param {Object} options Search collection options
-     * @param {String} key Object key to change. Must be a String
-     * @param {Any} value Key vaue to declare
+     * @param {Object} value Data to change.
      * @returns Boolean true if success, false if failed
      */
 
-    static async mongoUpdate(schema, options, key, value) {
+    static async mongoUpdate(schema, options, value) {
         try {
-            await schema.updateOne({ options }, { "$set": { key: value } }).catch(e => {
+            await schema.updateOne({ options }, { "$set": value }).catch(e => {
                 throw new TypeError("Something went wrong:", e)
             })
         } catch (error) {

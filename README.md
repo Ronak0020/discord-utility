@@ -44,6 +44,12 @@ A package containing some basic and common yet important and useful utility func
 * [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
 * [DiscordUtility.figlet()](#discordutilityfiglet)
 * [DiscordUtility.uptime()](#discordutilityuptime)
+* [DiscordUtility.uptime()](#discordutilitymongoConnect)
+* [DiscordUtility.uptime()](#discordutilitymongoFind)
+* [DiscordUtility.uptime()](#discordutilitymongosave)
+* [DiscordUtility.uptime()](#discordutilitymongodelete)
+* [DiscordUtility.uptime()](#discordutilitymongoupdate)
+* [DiscordUtility.uptime()](#discordutilitymongocreate)
 
 ## Usage
 ### Installation
@@ -390,4 +396,121 @@ DiscordUtility.formatDays(264860372)
 //returns "3 days, 1 hours, 34 minutes and 20 seconds"
 ```
 
-# Mongoose Functions Documentations Will Be released soon. Please Be Patient. Thank you!
+### Basic Mongoose Utils
+
+#### DiscordUtility.mongoConnect()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| url | String | Your mongoDB URI |
+
+##### Example
+```js
+DiscordUtility.mongoConnect("mongodb://Username:Password@PORT")
+//returns Promise mongoose.connect()
+```
+
+#### DiscordUtility.mongoFind()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| schema | Mongoose.Schema | Your mongoDB Schema |
+| options | Object | Data you want to find in database. |
+
+##### Example
+```js
+const Schema = new mongoose.Schema({
+    guildID: {type: String},
+    prefix: {type: String, default: "!"}
+});
+const guildSchema = mongoose.model("guildConfig", Schema);
+
+DiscordUtility.mongoFind(guildSchema, {guildID: "1234567890"})
+//returns Data
+```
+
+#### DiscordUtility.mongoSave()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| data | Mongoose.Collection | Your mongoDB Schema data |
+
+##### Example
+```js
+const Schema = new mongoose.Schema({
+    guildID: {type: String},
+    prefix: {type: String, default: "!"}
+});
+const guildSchema = mongoose.model("guildConfig", Schema);
+
+let data = await DiscordUtility.mongoFind(guildSchema, {guildID: "1234567890"});
+data.prefix = "?";
+DiscordUtility.mongoSave(data);
+//returns Promise
+```
+
+#### DiscordUtility.mongoDelete()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| data | Mongoose.Collection | Your mongoDB Schema data |
+
+##### Example
+```js
+const Schema = new mongoose.Schema({
+    guildID: {type: String},
+    prefix: {type: String, default: "!"}
+});
+const guildSchema = mongoose.model("guildConfig", Schema);
+
+let data = await DiscordUtility.mongoFind(guildSchema, {guildID: "1234567890"});
+DiscordUtility.mongoDelete(data);
+//returns Promise
+```
+
+#### DiscordUtility.mongoUpdate()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| schema | Mongoose.Schema | Your mongoDB Schema |
+| options | Object | Options to search a datadabse for |
+| value | Object | Values to change. |
+
+##### Example
+```js
+const Schema = new mongoose.Schema({
+    guildID: {type: String},
+    prefix: {type: String, default: "!"},
+    data: {type: Object, default: {messages: 1, date: Date.now(), author: "Rem"}}
+});
+const guildSchema = mongoose.model("guildConfig", Schema);
+
+let data = await DiscordUtility.mongoFind(guildSchema, {guildID: "1234567890"});
+let options = {guildID: "1234567890"};
+let value = {"data.messages": 2};
+DiscordUtility.mongoUpdate(data, options, value);
+//returns Promise
+```
+
+#### DiscordUtility.mongoCreate()
+| Parameter | Type | Description |
+| --- | --- | --- |
+| schema | Mongoose.Schema | Your mongoDB Schema |
+| options | Object | Options to create the database. |
+
+##### Example
+```js
+const Schema = new mongoose.Schema({
+    guildID: {type: String},
+    prefix: {type: String, default: "!"}
+});
+const guildSchema = mongoose.model("guildConfig", Schema);
+
+let data = await DiscordUtility.mongoFind(guildSchema, {guildID: "1234567890"});
+if(!data) { //If the database for the server is not available
+    data = await DiscordUtility.mongoCreate(guildSchema, {guildID: "1234567890"});
+}
+//returns Promise
+```
+
+## Support
+#### If you are facing any issues or if you have found a bug in this package, feel free to open an issue in the github repository. [Click Here](https://github.com/Ronak0020/discord-utility/issues)
+
+#### You can also contribute to this package. Feel free to create a pull request!
+
+#### You can also reach out to me through discord. My user tag is -> **♡ Rem ♡#2135**
