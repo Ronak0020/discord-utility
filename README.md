@@ -43,7 +43,7 @@ A package containing some basic and common yet important and useful utility func
 * [DiscordUtility.generateRoman()](#discordutilitygenerateroman)
 * [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
 * [DiscordUtility.figlet()](#discordutilityfiglet)
-* [DiscordUtility.formatTime()](#discordutilityformattime)
+* [DiscordUtility.formatDays()](#discordutilityformatdays)
 * [DiscordUtility.mongoConnect()](#discordutilitymongoconnect)
 * [DiscordUtility.mongoFind()](#discordutilitymongofind)
 * [DiscordUtility.mongoSave()](#discordutilitymongosave)
