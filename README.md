@@ -43,13 +43,13 @@ A package containing some basic and common yet important and useful utility func
 * [DiscordUtility.generateRoman()](#discordutilitygenerateroman)
 * [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
 * [DiscordUtility.figlet()](#discordutilityfiglet)
-* [DiscordUtility.uptime()](#discordutilityuptime)
-* [DiscordUtility.uptime()](#discordutilitymongoConnect)
-* [DiscordUtility.uptime()](#discordutilitymongoFind)
-* [DiscordUtility.uptime()](#discordutilitymongosave)
-* [DiscordUtility.uptime()](#discordutilitymongodelete)
-* [DiscordUtility.uptime()](#discordutilitymongoupdate)
-* [DiscordUtility.uptime()](#discordutilitymongocreate)
+* [DiscordUtility.formatTime()](#discordutilityformattime)
+* [DiscordUtility.mongoConnect()](#discordutilitymongoconnect)
+* [DiscordUtility.mongoFind()](#discordutilitymongofind)
+* [DiscordUtility.mongoSave()](#discordutilitymongosave)
+* [DiscordUtility.mongoDelete()](#discordutilitymongodelete)
+* [DiscordUtility.mongoUpdate()](#discordutilitymongoupdate)
+* [DiscordUtility.mongoCreate()](#discordutilitymongocreate)
 
 ## Usage
 ### Installation
