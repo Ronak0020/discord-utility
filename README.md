@@ -4,15 +4,18 @@
     </p>
 </div>
 
-
 # Discord-Utility
+
 A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc.
-#### This module is still in development. If you encounter any bugs, feel free to open an issue ticket in github.
+
+#### This module is still in development. If you encounter any bugs, feel free to open an issue ticket in github
 
 ### Introduction
+
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easy to make.
 
 ### Features
+
 - Easy to use
 - Tons of premade functions to implement in your code easily
 - Includes Mongoose functions. Make bot using MongoDB easily
@@ -20,65 +23,75 @@ A package containing some basic and common yet important and useful utility func
 - Support always available!
 
 ### Functions List
+
 * [DiscordUtility.delay()](#discordutilitydelay)
-* [DiscordUtility.shorten()](#discordutilityshorten)
-* [DiscordUtility.randomNumber()](#discordutilityrandomNumber)
-* [DiscordUtility.trimArray()](#discordutilitytrimarray)
-* [DiscordUtility.shuffleArray()](#discordutilityshufflearray)
-* [DiscordUtility.removeDuplicates()](#discordutilityremoveDuplicates)
-* [DiscordUtility.list()](#discordutilitylist)
-* [DiscordUtility.sortByName()](#discordutilitysortbyname)
-* [DiscordUtility.firstUpperCase()](#discordutilityfirstuppercase)
-* [DiscordUtility.formatNumber()](#discordutilityformatnumber)
-* [DiscordUtility.base64()](#discordutilitybase64)
-* [DiscordUtility.createHash()](#discordutilitycreatehash)
-* [DiscordUtility.verify()](#discordutilityverify)
-* [DiscordUtility.reactMessage()](#discordutilityreactmessage)
-* [DiscordUtility.awaitPlayers()](#discordutilityawaitplayers)
-* [DiscordUtility.formatBytes()](#discordutilityformatbytes)
-* [DiscordUtility.promptMessage()](#discordutilitypromptmessage)
-* [DiscordUtility.getMember()](#discordutilitygetmember)
-* [DiscordUtility.getUser()](#discordutilitygetuser)
-* [DiscordUtility.createId()](#discordutilitycreateid)
-* [DiscordUtility.generateRoman()](#discordutilitygenerateroman)
-* [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
-* [DiscordUtility.figlet()](#discordutilityfiglet)
-* [DiscordUtility.formatDays()](#discordutilityformatdays)
-* [DiscordUtility.mongoConnect()](#discordutilitymongoconnect)
-* [DiscordUtility.mongoFind()](#discordutilitymongofind)
-* [DiscordUtility.mongoSave()](#discordutilitymongosave)
-* [DiscordUtility.mongoDelete()](#discordutilitymongodelete)
-* [DiscordUtility.mongoUpdate()](#discordutilitymongoupdate)
-* [DiscordUtility.mongoCreate()](#discordutilitymongocreate)
+- [DiscordUtility.shorten()](#discordutilityshorten)
+- [DiscordUtility.randomNumber()](#discordutilityrandomNumber)
+- [DiscordUtility.trimArray()](#discordutilitytrimarray)
+- [DiscordUtility.shuffleArray()](#discordutilityshufflearray)
+- [DiscordUtility.removeDuplicates()](#discordutilityremoveDuplicates)
+- [DiscordUtility.list()](#discordutilitylist)
+- [DiscordUtility.sortByName()](#discordutilitysortbyname)
+- [DiscordUtility.firstUpperCase()](#discordutilityfirstuppercase)
+- [DiscordUtility.formatNumber()](#discordutilityformatnumber)
+- [DiscordUtility.base64()](#discordutilitybase64)
+- [DiscordUtility.createHash()](#discordutilitycreatehash)
+- [DiscordUtility.verify()](#discordutilityverify)
+- [DiscordUtility.reactMessage()](#discordutilityreactmessage)
+- [DiscordUtility.awaitPlayers()](#discordutilityawaitplayers)
+- [DiscordUtility.formatBytes()](#discordutilityformatbytes)
+- [DiscordUtility.promptMessage()](#discordutilitypromptmessage)
+- [DiscordUtility.getMember()](#discordutilitygetmember)
+- [DiscordUtility.getUser()](#discordutilitygetuser)
+- [DiscordUtility.createId()](#discordutilitycreateid)
+- [DiscordUtility.generateRoman()](#discordutilitygenerateroman)
+- [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
+- [DiscordUtility.figlet()](#discordutilityfiglet)
+- [DiscordUtility.formatDays()](#discordutilityformatdays)
+- [DiscordUtility.generateEmbed()](#discordutilitygenerateembed)
+- [DiscordUtility.mongoConnect()](#discordutilitymongoconnect)
+- [DiscordUtility.mongoFind()](#discordutilitymongofind)
+- [DiscordUtility.mongoSave()](#discordutilitymongosave)
+- [DiscordUtility.mongoDelete()](#discordutilitymongodelete)
+- [DiscordUtility.mongoUpdate()](#discordutilitymongoupdate)
+- [DiscordUtility.mongoCreate()](#discordutilitymongocreate)
 
 ## Usage
+
 ### Installation
+
 ```npm install utils-discord --save```
 
 ### Use
+
 ```js
 const DiscordUtility = require("utils-discord");
 ```
 
 ### Methods
+
 #### DiscordUtility.delay()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | time | Number | Amount of time in milliseconds to delay a function |
 
 ##### Example
+
 ```js
 await DiscordUtility.delay(1000);
 // return Promise
 ```
 
 #### DiscordUtility.shorten()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | text | String | The text you want to shorten |
 | maxLen | Number | Maximum length of text to return. Default: 2000 |
 
 ##### Example
+
 ```js
 let string = "Hello! This is an example code to explain the use of `DiscordUtility.shorten()` method!"
 DiscordUtility.shorten(string, 15);
@@ -86,24 +99,28 @@ DiscordUtility.shorten(string, 15);
 ```
 
 #### DiscordUtility.randomNumber()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | min | Number | Minimum number to generate |
 | max | Number | Maximum number to generate |
 
 ##### Example
+
 ```js
 DiscordUtility.randomNumber(10, 15);
 // returns 13
 ```
 
 #### DiscordUtility.trimArray()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | array | Array | Array to trim |
 | maxLen | Number | Maximum length of array to return |
 
 ##### Example
+
 ```js
 let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"]
 DiscordUtility.trimArray(array, 5);
@@ -111,11 +128,13 @@ DiscordUtility.trimArray(array, 5);
 ```
 
 #### DiscordUtility.shuffleArray()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | array | Array | Array to shuffle |
 
 ##### Example
+
 ```js
 let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"]
 DiscordUtility.shuffleArray(array, 5);
@@ -123,11 +142,13 @@ DiscordUtility.shuffleArray(array, 5);
 ```
 
 #### DiscordUtility.removeDuplicates()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | array | Array | Array to remove duplicate elements from |
 
 ##### Example
+
 ```js
 let array = ["element1", "element1", "element2", "element3", "element4", "element4", "element4", "element5"]
 DiscordUtility.removeDuplicates(array);
@@ -135,12 +156,14 @@ DiscordUtility.removeDuplicates(array);
 ```
 
 #### DiscordUtility.list()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | array | Array | Array to shuffle |
 | conj | String | Conjuction to join last two elements with. Default: "and" |
 
 ##### Example
+
 ```js
 let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"]
 DiscordUtility.list(array, "lastly");
@@ -148,11 +171,13 @@ DiscordUtility.list(array, "lastly");
 ```
 
 #### DiscordUtility.sortByName()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | array | Array | Array to sort element of |
 
 ##### Example
+
 ```js
 let array = ["Shander", "Luffy", "Kaneki", "Ronak"]
 DiscordUtility.sortByName(array);
@@ -160,12 +185,14 @@ DiscordUtility.sortByName(array);
 ```
 
 #### DiscordUtility.firstUpperCase()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | text | String | String to convert each word's first letter UPPERCASE |
 | split | String | Optional. Split the string to convert word's first letter UPPERCASE Default: " " |
 
 ##### Example
+
 ```js
 let string = "this is a test string";
 //If you want to convert elemtns of array to uppercase
@@ -175,12 +202,14 @@ DiscordUtility.firstUpperCase(string);
 ```
 
 #### DiscordUtility.formatNumber()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | number | Number | Number to format |
 | minimumFractionDigits | Number | Optional. Minimum fraction digits to format to. Default: 2 |
 
 ##### Example
+
 ```js
 let number = 2967.5779;
 DiscordUtility.formatNumber(number);
@@ -190,12 +219,14 @@ DiscordUtility.formatNumber(number);
 ```
 
 #### DiscordUtility.base64()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | text | String | text to convert in base64 format. |
 | mode | String | Optional. Whether to "encode" or "decode". Default: "encode" |
 
 ##### Example
+
 ```js
 let string = "My name is ronak";
 DiscordUtility.base64(string);
@@ -208,12 +239,14 @@ DiscordUtility.base64(decodeString, "decode");
 ```
 
 #### DiscordUtility.createHash()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | text | String | text to convert in base64 format. |
 | algorithm | String | What algorythm to use for the conversion |
 
 ##### Example
+
 ```js
 let string = "Password";
 DiscordUtility.createHash(string, "sha256");
@@ -221,6 +254,7 @@ DiscordUtility.createHash(string, "sha256");
 ```
 
 #### DiscordUtility.verify()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | channel | Discord.Message | Channel to create verification in. |
@@ -228,6 +262,7 @@ DiscordUtility.createHash(string, "sha256");
 | options | Object | Optional. Desired time for the verification to last, extra "yes" and "no" (Array) |
 
 ##### Example
+
 ```js
 let channel = message.channel;
 let user = message.mentions.users.first();
@@ -237,6 +272,7 @@ DiscordUtility.verify(channel, user);
 ```
 
 #### DiscordUtility.reactMessage()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | message | Discord.Message | Message to react on. |
@@ -245,6 +281,7 @@ DiscordUtility.verify(channel, user);
 | fallbackEmoji | String | Optional. Fall back emoji, if main emoji not found, react with it. Default: "✅" |
 
 ##### Example
+
 ```js
 let message = await message.channel.messages.fetch("message-id");
 let user = client.user;
@@ -255,6 +292,7 @@ DiscordUtility.reactMessage(message, user, emoji);
 ```
 
 #### DiscordUtility.awaitPlayers()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | msg | Discord.Message | Your Discord.Message |
@@ -264,6 +302,7 @@ DiscordUtility.reactMessage(message, user, emoji);
 | min | Number | Optional. Minimum number of users required for the queue. Default: 1 |
 
 ##### Example
+
 ```js
 let msg = message;
 let join = "join game";
@@ -275,11 +314,13 @@ DiscordUtility.awaitPlayers(msg, join, emoji, max);
 ```
 
 #### DiscordUtility.formatBytes()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | bytes | Number | Byte to format. |
 
 ##### Example
+
 ```js
 let bytes = 1537693;
 DiscordUtility.formatBytes(bytes);
@@ -287,6 +328,7 @@ DiscordUtility.formatBytes(bytes);
 ```
 
 #### DiscordUtility.promptMessage()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | message | Discord.Message | Discord.Message. |
@@ -295,6 +337,7 @@ DiscordUtility.formatBytes(bytes);
 | validReactions | Array | Array of reactions to create verifications for. |
 
 ##### Example
+
 ```js
 let message = message;
 let author = message.author;
@@ -312,12 +355,14 @@ DiscordUtility.promptMessage(message, author, time, validReactions).then(async(e
 ```
 
 #### DiscordUtility.getMember()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | message | Discord.Message | Discord.Message. |
 | toFind | String | Find member with this data. |
 
 ##### Example
+
 ```js
 let message = message;
 let toFind = message.content.slice(prefix.length).trim().split(" ").slice(1).join(" "); //Use your "args" if you have defined that.
@@ -326,6 +371,7 @@ DiscordUtility.getMember(message, toFind);
 ```
 
 #### DiscordUtility.getUser()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | client | Discord.Client | Your bot client. |
@@ -333,6 +379,7 @@ DiscordUtility.getMember(message, toFind);
 | toFind | String | Find member with this data. |
 
 ##### Example
+
 ```js
 let client = new Discord.Client();
 let message = message;
@@ -342,80 +389,115 @@ DiscordUtility.getUser(client, message, toFind);
 ```
 
 #### DiscordUtility.createId()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | length | Number | Optional. The length of id. Default: 4 |
 
 ##### Example
+
 ```js
 DiscordUtility.makeId()
 //returns "g5a8"
 ```
 
 #### DiscordUtility.generateRoman()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | num | Number | Number to convert into roman digits |
 
 ##### Example
+
 ```js
 DiscordUtility.generateRoman(20)
 //returns "XX"
 ```
 
 #### DiscordUtility.generateNumeral()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | roman | String | Roman Number to convert into arabic digits |
 
 ##### Example
+
 ```js
 DiscordUtility.generateNumeral("XLII")
 //returns 42
 ```
 
 #### DiscordUtility.figlet()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | string | String | String to convert into Figlet text |
 
 ##### Example
+
 ```js
 DiscordUtility.figlet("Ronak")
 //returns 42
 ```
 
 #### DiscordUtility.formatDays()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | unicode | Number | Duration unicode to convert into Days, Hours, Minutes and seconds |
 
 ##### Example
+
 ```js
 DiscordUtility.formatDays(264860372)
 //returns "3 days, 1 hours, 34 minutes and 20 seconds"
 ```
 
+#### DiscordUtility.generateEmbed()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| options | Object | Object containing all the embed data |
+
+##### Example
+
+```js
+let options = {
+    title: "A title",
+    description: "A desscription for the embed",
+    footer: client.user.username,
+    footerImage: client.user.displayAvatarURL()
+    color: "#0000ff"
+}
+let embed = DiscordUtility.generateEmbed(options);
+message.channel.send(embed);
+//returns Discord.MessageEmbed
+```
+
 ### Basic Mongoose Utils
 
 #### DiscordUtility.mongoConnect()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | url | String | Your mongoDB URI |
 
 ##### Example
+
 ```js
 DiscordUtility.mongoConnect("mongodb://Username:Password@PORT")
 //returns Promise mongoose.connect()
 ```
 
 #### DiscordUtility.mongoFind()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | schema | Mongoose.Schema | Your mongoDB Schema |
 | options | Object | Data you want to find in database. |
 
 ##### Example
+
 ```js
 const Schema = new mongoose.Schema({
     guildID: {type: String},
@@ -428,11 +510,13 @@ DiscordUtility.mongoFind(guildSchema, {guildID: "1234567890"})
 ```
 
 #### DiscordUtility.mongoSave()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | data | Mongoose.Collection | Your mongoDB Schema data |
 
 ##### Example
+
 ```js
 const Schema = new mongoose.Schema({
     guildID: {type: String},
@@ -447,11 +531,13 @@ DiscordUtility.mongoSave(data);
 ```
 
 #### DiscordUtility.mongoDelete()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | data | Mongoose.Collection | Your mongoDB Schema data |
 
 ##### Example
+
 ```js
 const Schema = new mongoose.Schema({
     guildID: {type: String},
@@ -465,6 +551,7 @@ DiscordUtility.mongoDelete(data);
 ```
 
 #### DiscordUtility.mongoUpdate()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | schema | Mongoose.Schema | Your mongoDB Schema |
@@ -472,6 +559,7 @@ DiscordUtility.mongoDelete(data);
 | value | Object | Values to change. |
 
 ##### Example
+
 ```js
 const Schema = new mongoose.Schema({
     guildID: {type: String},
@@ -488,12 +576,14 @@ DiscordUtility.mongoUpdate(data, options, value);
 ```
 
 #### DiscordUtility.mongoCreate()
+
 | Parameter | Type | Description |
 | --- | --- | --- |
 | schema | Mongoose.Schema | Your mongoDB Schema |
 | options | Object | Options to create the database. |
 
 ##### Example
+
 ```js
 const Schema = new mongoose.Schema({
     guildID: {type: String},
@@ -509,8 +599,9 @@ if(!data) { //If the database for the server is not available
 ```
 
 ## Support
+
 #### If you are facing any issues or if you have found a bug in this package, feel free to open an issue in the github repository. [Click Here](https://github.com/Ronak0020/discord-utility/issues)
 
-#### You can also contribute to this package. Feel free to create a pull request!
+#### You can also contribute to this package. Feel free to create a pull request
 
 #### You can also reach out to me through discord. My user tag is -> **♡ Rem ♡#2135**

@@ -404,6 +404,37 @@ module.exports = class DiscordUtility {
         return `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
     }
 
+    /**
+     * Generate an embed easily using this function.
+     * @param {Object} options Object containing the data for the embed.
+     * @returns Discord.MessageEmbed
+     */
+
+    static generateEmbed(options) {
+        let description = options.description;
+        let title = options.title;
+        let color = options.color;
+        let footer = options.footer;
+        let footerImage = options.footerImage;
+        let thumbnail = options.thumbnail;
+        let image = options.image;
+        let url = options.url;
+        let fields = options.fields;
+
+        let embed = new Discord.MessageEmbed();
+        if(title) embed.setTitle(title);
+        if(description) embed.setDescription(description);
+        if(color) {
+            embed.setColor(color);
+        } else embed.setColor("#FF0000");
+        if(footer) embed.setFooter(footer, footerImage ? footerImage : null);
+        if(thumbnail) embed.setThumbnail(thumbnail);
+        if(image) embed.setImage(image);
+        if(url) embed.setURL(url);
+        if(fields) embed.addFields(fields);
+        return embed;
+    }
+
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▲━━━━━━━━━━━━━━━━━━━━━━━━━━━
     // ━━━━━━━━━━━━━━━━━━ MONGOOSE FUNCTION ━━━━━━━━━━━━━━━━━━
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▼━━━━━━━━━━━━━━━━━━━━━━━━━━━
