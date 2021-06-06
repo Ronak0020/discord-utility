@@ -24,7 +24,7 @@ A package containing some basic and common yet important and useful utility func
 
 ### Functions List
 
-* [DiscordUtility.delay()](#discordutilitydelay)
+- [DiscordUtility.delay()](#discordutilitydelay)
 - [DiscordUtility.shorten()](#discordutilityshorten)
 - [DiscordUtility.randomNumber()](#discordutilityrandomNumber)
 - [DiscordUtility.trimArray()](#discordutilitytrimarray)
@@ -49,6 +49,7 @@ A package containing some basic and common yet important and useful utility func
 - [DiscordUtility.figlet()](#discordutilityfiglet)
 - [DiscordUtility.formatDays()](#discordutilityformatdays)
 - [DiscordUtility.generateEmbed()](#discordutilitygenerateembed)
+- [DiscordUtility.createEmbedPages()](#discordutilitycreateembedpages)
 - [DiscordUtility.mongoConnect()](#discordutilitymongoconnect)
 - [DiscordUtility.mongoFind()](#discordutilitymongofind)
 - [DiscordUtility.mongoSave()](#discordutilitymongosave)
@@ -474,6 +475,57 @@ message.channel.send(embed);
 //returns Discord.MessageEmbed
 ```
 
+#### DiscordUtility.createEmbedPages()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| client | Discord.Client | Your Discord.js Client |
+| message | Discord.Message | Your discord.js Message |
+| array | Array | Array of data that need to be converted into pages |
+| options | Object | Optional. Object containing all the embed pages data |
+
+##### Example
+
+```js
+let options = {
+    title: "A title",
+    footer: client.user.username,
+    footerImage: client.user.displayAvatarURL()
+    color: "#efc67a",
+    args: message.content.split(" ")[1],
+    // IF YOU WANT TO CHANGE EMOJIS
+    emojis: {
+        forward: "👉"
+    }
+    //Read below for all emojis options
+}
+let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"];
+Utils.createEmbedPages(client, message, array)
+//returns Discord.MessageEmbed
+
+// ======== Default Options for embed =========
+// null means Not set.
+options.title = null, //embed.title
+options.color = "#0000ff", //embed.color
+options.args = null, //Whether to use numbers for page navigation or not. To enable, replace "null" with the argument of the message
+options.joinBy = "\n", //How to join the arrays in embed
+options.perpage = 5, //How many elements to show perpage
+options.image = null, //embed.image (will be visible in all embed pages)
+options.thumbnail = null, //embed.thumbnail imageURL
+options.footer = client.user.username, //embed.footer
+options.footerImage = client.user.displayAvatarURL(), //embed.footer imageURL
+options.author = null, //embed.author
+options.authorImage = null, //embed.author imageURL
+options.timestamp = null, //Whether to view Timestamp in embed. true/false
+options.user = message.author; //User who will be able to react
+// ========== EMOJIS ==========
+options.emojis.forward = "▶", //Emojis used to navigate to next page
+options.emojis.backward = "◀", //Emojis used to navigate to previous page
+options.emojis.delete = "🗑", //Emojis used to delete the embed pages message
+options.emojis.first = "⏪", //Emojis used to navigate to first page
+options.emojis.last = "⏩" //Emojis used to navigate to last page
+```
+
 ### Basic Mongoose Utils
 
 #### DiscordUtility.mongoConnect()
@@ -600,8 +652,6 @@ if(!data) { //If the database for the server is not available
 
 ## Support
 
-#### If you are facing any issues or if you have found a bug in this package, feel free to open an issue in the github repository. [Click Here](https://github.com/Ronak0020/discord-utility/issues)
-
-#### You can also contribute to this package. Feel free to create a pull request
-
-#### You can also reach out to me through discord. My user tag is -> **♡ Rem ♡#2135**
+If you are facing any issues or if you have found a bug in this package, feel free to open an issue in the github repository. [Click Here](https://github.com/Ronak0020/discord-utility/issues)
+You can contribute to this package. Feel free to create a pull request
+You can also reach out to me through discord. My user tag is -> **♡ Rem ♡#2135**

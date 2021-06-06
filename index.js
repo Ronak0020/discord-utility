@@ -422,17 +422,122 @@ module.exports = class DiscordUtility {
         let fields = options.fields;
 
         let embed = new Discord.MessageEmbed();
-        if(title) embed.setTitle(title);
-        if(description) embed.setDescription(description);
-        if(color) {
+        if (title) embed.setTitle(title);
+        if (description) embed.setDescription(description);
+        if (color) {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
-        if(footer) embed.setFooter(footer, footerImage ? footerImage : null);
-        if(thumbnail) embed.setThumbnail(thumbnail);
-        if(image) embed.setImage(image);
-        if(url) embed.setURL(url);
-        if(fields) embed.addFields(fields);
+        if (footer) embed.setFooter(footer, footerImage ? footerImage : null);
+        if (thumbnail) embed.setThumbnail(thumbnail);
+        if (image) embed.setImage(image);
+        if (url) embed.setURL(url);
+        if (fields) embed.addFields(fields);
         return embed;
+    }
+
+    /**
+     * Create Embed Pages easily using this util function
+     * @param {Discord.Client} client Your Discord.Client()
+     * @param {Discord.Message} message your Discord.Message()
+     * @param {Array} array Array of information to arrange in pages
+     * @param {Object} options Object of extra options
+     */
+
+    static async createEmbedPages(client, message, array, options = { emojis: {} }) {
+
+        let title = options.title || null,
+            color = options.color || "#0000ff",
+            args = options.args || false,
+            joinBy = options.joinBy || "\n",
+            perpage = options.perpage || 5,
+            image = options.image || null,
+            thumbnail = options.thumbnail || null,
+            footer = options.footer || client.user.username,
+            footerImage = options.footerImage || client.user.displayAvatarURL(),
+            author = options.author || null,
+            authorImage = options.authorImage || null,
+            timestamp = options.timestamp || null,
+            user = options.user || message.author;
+
+        let forward = options.emojis.forward || "▶",
+            backward = options.emojis.backward || "◀",
+            end = options.emojis.delete || "🗑",
+            firstPage = options.emojis.first || "⏪",
+            lastPage = options.emojis.last || "⏩"
+
+        let pageno = parseInt(args) ? args : 1;
+        parseInt(args) <= Math.ceil(array.length / perpage) ? pageno : pageno = 1;
+
+        let first = !isNaN(parseInt(args)) ? perpage * (parseInt(pageno) - 1) : 0;
+        let second = !isNaN(parseInt(args)) ? perpage * parseInt(pageno) : perpage;
+
+        const embed = new Discord.MessageEmbed();
+        embed.setColor(color)
+        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+        if (title) embed.setTitle(title)
+        if (thumbnail) embed.setThumbnail(thumbnail)
+        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage)
+        if (timestamp) embed.setTimestamp();
+        if (author) embed.setAuthor(author, authorImage)
+        if (image) embed.setImage(image)
+
+        const msg = await message.channel.send({embed: embed});
+
+        if (array.length > perpage) {
+            await msg.react(backward);
+            await msg.react(forward);
+            await msg.react(firstPage);
+            await msg.react(lastPage);
+            await msg.react(end);
+
+            const collector = msg.createReactionCollector((reaction, member) => member.id === user.id, {
+                time: 120000
+            });
+            collector.on('collect', async (r) => {
+                const reactionadd = array.slice(first + perpage, second + perpage).length;
+                const reactionremove = array.slice(first - perpage, second - perpage).length;
+
+                if (r.emoji.name === forward && reactionadd !== 0) {
+                    pageno++
+                    r.users.remove(message.author.id);
+
+                    first += perpage;
+                    second += perpage;
+                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                    msg.edit({embed: embed});
+                } else if (r.emoji.name === backward && reactionremove !== 0) {
+                    r.users.remove(message.author.id);
+                    pageno--
+                    first -= perpage;
+                    second -= perpage;
+                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                    msg.edit({embed: embed})
+                } else if (r.emoji.name === firstPage) {
+                    r.users.remove(message.author.id);
+                    pageno = 1;
+                    first = 0;
+                    second = perpage;
+                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                    msg.edit({embed: embed})
+                } else if (r.emoji.name === lastPage) {
+                    r.users.remove(message.author.id);
+                    pageno = Math.ceil(array.length / perpage);
+                    first = (pageno * perpage) - perpage;
+                    second = pageno * perpage;
+                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                    msg.edit({embed: embed})
+                } else if (r.emoji.name === end) {
+                    await msg.delete();
+                }
+            });
+            collector.on('end', (_, reason) => {
+                if(reason === "time") msg.reactions.removeAll();
+            })
+        }
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━▲━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -535,7 +640,7 @@ module.exports = class DiscordUtility {
             await newSchema.save().catch(e => {
                 throw new TypeError("Something went wrong:", e)
             })
-        } catch(error) {
+        } catch (error) {
             throw new TypeError("Something wet wrong:", error)
         }
         return true;
