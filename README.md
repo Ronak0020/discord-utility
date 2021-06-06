@@ -500,7 +500,7 @@ let options = {
     //Read below for all emojis options
 }
 let array = ["element1", "element2", "element3", "element4", "element5", "element6", "element7", "element8"];
-Utils.createEmbedPages(client, message, array)
+Utils.createEmbedPages(client, message, array, options)
 //returns Discord.MessageEmbed
 
 // ======== Default Options for embed =========
