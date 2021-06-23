@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const yes = ['yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct'];
 const no = ['no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off'];
 const Discord = require("discord.js");
+const Buttons = require("discord-buttons");
 const mongoose = require("mongoose");
 const figlet = require("figlet");
 
@@ -224,12 +225,12 @@ module.exports = class DiscordUtility {
         );
         const joined = [];
         joined.push(msg.author.id);
-        const filter = res => {
+        const filter = async (res) => {
             if (res.author.bot) return false;
             if (joined.includes(res.author.id)) return false;
             if (res.content.toLowerCase() !== join) return false;
             joined.push(res.author.id);
-            Util.reactIfAble(res, res.author, emoji, '✅');
+            await this.reactMessage(res, res.author, emoji, '✅');
             return true;
         };
         const verify = await msg.channel.awaitMessages(filter, { max: max - 1, time: 60000 });
@@ -420,6 +421,7 @@ module.exports = class DiscordUtility {
         let image = options.image;
         let url = options.url;
         let fields = options.fields;
+        let timestamp = options.timestamp;
 
         let embed = new Discord.MessageEmbed();
         if (title) embed.setTitle(title);
@@ -432,6 +434,7 @@ module.exports = class DiscordUtility {
         if (image) embed.setImage(image);
         if (url) embed.setURL(url);
         if (fields) embed.addFields(fields);
+        if (timestamp) embed.setTimestamp();
         return embed;
     }
 
@@ -444,7 +447,8 @@ module.exports = class DiscordUtility {
      */
 
     static async createEmbedPages(client, message, array, options = { emojis: {} }) {
-
+        Buttons(client);
+        options.emojis = options.emojis ? options.emojis : {}
         let title = options.title || null,
             color = options.color || "#0000ff",
             args = options.args || false,
@@ -457,6 +461,7 @@ module.exports = class DiscordUtility {
             author = options.author || null,
             authorImage = options.authorImage || null,
             timestamp = options.timestamp || null,
+            buttons = options.buttons || false,
             user = options.user || message.author;
 
         let forward = options.emojis.forward || "▶",
@@ -479,64 +484,137 @@ module.exports = class DiscordUtility {
         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage)
         if (timestamp) embed.setTimestamp();
         if (author) embed.setAuthor(author, authorImage)
-        if (image) embed.setImage(image)
+        if (image) embed.setImage(image);
 
-        const msg = await message.channel.send({embed: embed});
+        let starting = new Buttons.MessageButton()
+            .setID("starting")
+            .setLabel("First")
+            .setStyle("blurple");
+
+        let back = new Buttons.MessageButton()
+            .setID("back")
+            .setLabel("Previous")
+            .setStyle("grey");
+
+        let next = new Buttons.MessageButton()
+            .setID("next")
+            .setLabel("Next")
+            .setStyle("grey");
+
+        let ending = new Buttons.MessageButton()
+            .setID("ending")
+            .setLabel("Last")
+            .setStyle("blurple");
+
+        let stoppage = new Buttons.MessageButton()
+            .setID("stoppage")
+            .setLabel("Delete")
+            .setStyle("red");
+
+        let msg;
+        if (!buttons) {
+            msg = await message.channel.send({ embed: embed });
+        } else {
+            msg = await message.channel.send({ buttons: [starting, back, next, ending, stoppage], embed: embed });
+        }
 
         if (array.length > perpage) {
-            await msg.react(backward);
-            await msg.react(forward);
-            await msg.react(firstPage);
-            await msg.react(lastPage);
-            await msg.react(end);
+            if (!buttons) {
+                await msg.react(backward);
+                await msg.react(forward);
+                await msg.react(firstPage);
+                await msg.react(lastPage);
+                await msg.react(end);
 
-            const collector = msg.createReactionCollector((reaction, member) => member.id === user.id, {
-                time: 120000
-            });
-            collector.on('collect', async (r) => {
-                const reactionadd = array.slice(first + perpage, second + perpage).length;
-                const reactionremove = array.slice(first - perpage, second - perpage).length;
+                const collector = msg.createReactionCollector((reaction, member) => member.id === user.id, {
+                    time: 120000
+                });
+                collector.on('collect', async (r) => {
+                    const reactionadd = array.slice(first + perpage, second + perpage).length;
+                    const reactionremove = array.slice(first - perpage, second - perpage).length;
 
-                if (r.emoji.name === forward && reactionadd !== 0) {
-                    pageno++
-                    r.users.remove(message.author.id);
+                    if (r.emoji.name === forward && reactionadd !== 0) {
+                        pageno++
+                        r.users.remove(message.author.id);
 
-                    first += perpage;
-                    second += perpage;
-                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
-                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
-                    msg.edit({embed: embed});
-                } else if (r.emoji.name === backward && reactionremove !== 0) {
-                    r.users.remove(message.author.id);
-                    pageno--
-                    first -= perpage;
-                    second -= perpage;
-                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
-                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
-                    msg.edit({embed: embed})
-                } else if (r.emoji.name === firstPage) {
-                    r.users.remove(message.author.id);
-                    pageno = 1;
-                    first = 0;
-                    second = perpage;
-                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
-                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
-                    msg.edit({embed: embed})
-                } else if (r.emoji.name === lastPage) {
-                    r.users.remove(message.author.id);
-                    pageno = Math.ceil(array.length / perpage);
-                    first = (pageno * perpage) - perpage;
-                    second = pageno * perpage;
-                    embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
-                    embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
-                    msg.edit({embed: embed})
-                } else if (r.emoji.name === end) {
-                    await msg.delete();
-                }
-            });
-            collector.on('end', (_, reason) => {
-                if(reason === "time") msg.reactions.removeAll();
-            })
+                        first += perpage;
+                        second += perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ embed: embed });
+                    } else if (r.emoji.name === backward && reactionremove !== 0) {
+                        r.users.remove(message.author.id);
+                        pageno--
+                        first -= perpage;
+                        second -= perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ embed: embed })
+                    } else if (r.emoji.name === firstPage) {
+                        r.users.remove(message.author.id);
+                        pageno = 1;
+                        first = 0;
+                        second = perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ embed: embed })
+                    } else if (r.emoji.name === lastPage) {
+                        r.users.remove(message.author.id);
+                        pageno = Math.ceil(array.length / perpage);
+                        first = (pageno * perpage) - perpage;
+                        second = pageno * perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ embed: embed })
+                    } else if (r.emoji.name === end) {
+                        await msg.delete();
+                    }
+                });
+                collector.on('end', (_, reason) => {
+                    if (reason === "time") msg.reactions.removeAll();
+                })
+            } else {
+                const filter = (button) => button.clicker.user.id === message.author.id;
+                const collector = await msg.createButtonCollector(filter, { time: 120000 });
+                collector.on("collect", async (button) => {
+                    const reactionadd = array.slice(first + perpage, second + perpage).length;
+                    const reactionremove = array.slice(first - perpage, second - perpage).length;
+                    if (button.id === "starting") {
+                        pageno = 1;
+                        first = 0;
+                        second = perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
+                    } else if (button.id === "back" && reactionremove !== 0) {
+                        pageno--
+                        first -= perpage;
+                        second -= perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
+                    } else if (button.id === "next" && reactionadd !== 0) {
+                        pageno++
+                        first += perpage;
+                        second += perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
+                    } else if (button.id === "ending") {
+                        pageno = Math.ceil(array.length / perpage);
+                        first = (pageno * perpage) - perpage;
+                        second = pageno * perpage;
+                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
+                    } else if (button.id === "stoppage") {
+                        await msg.delete();
+                    }
+                });
+                collector.on("end", collected => {
+                    msg.edit({ embed: embed })
+                })
+            }
         }
     }
 

@@ -493,6 +493,7 @@ let options = {
     footerImage: client.user.displayAvatarURL()
     color: "#efc67a",
     args: message.content.split(" ")[1],
+    buttons: true, //only if you want to use buttons instead of reactions. else, leave it.
     // IF YOU WANT TO CHANGE EMOJIS
     emojis: {
         forward: "👉"
@@ -505,6 +506,7 @@ Utils.createEmbedPages(client, message, array, options)
 
 // ======== Default Options for embed =========
 // null means Not set.
+options.buttons = false //make it true to use buttons instead of reactions for page navigation
 options.title = null, //embed.title
 options.color = "#0000ff", //embed.color
 options.args = null, //Whether to use numbers for page navigation or not. To enable, replace "null" with the argument of the message
