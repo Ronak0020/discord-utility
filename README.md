@@ -2,6 +2,10 @@
     <p>
         <a href="https://nodei.co/npm/utils-discord/"><img src="https://nodei.co/npm/utils-discord.png?downloads=true&stars=true" alt="npm installnfo" /></a>
     </p>
+  <p>
+    <a href="https://www.npmjs.com/package/utils-discord"><img src="https://img.shields.io/npm/v/utils-discord.svg?maxAge=3600" alt="NPM version" /></a>
+    <a href="https://www.npmjs.com/package/discord.js"><img src="https://img.shields.io/npm/dt/utils-discord.svg?maxAge=3600" alt="NPM downloads" /></a>
+  </p>
 </div>
 
 # Discord-Utility
