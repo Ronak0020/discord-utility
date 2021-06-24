@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const yes = ['yes', 'y', 'ye', 'yeah', 'yup', 'yea', 'ya', 'hai', 'si', 'sí', 'oui', 'はい', 'correct'];
 const no = ['no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck off'];
 const Discord = require("discord.js");
-const Buttons = require("discord-buttons");
+const { MessageButton } = require("discord-buttons");
 const mongoose = require("mongoose");
 const figlet = require("figlet");
 
@@ -447,7 +447,6 @@ module.exports = class DiscordUtility {
      */
 
     static async createEmbedPages(client, message, array, options = { emojis: {} }) {
-        Buttons(client);
         options.emojis = options.emojis ? options.emojis : {}
         let title = options.title || null,
             color = options.color || "#0000ff",
@@ -486,27 +485,27 @@ module.exports = class DiscordUtility {
         if (author) embed.setAuthor(author, authorImage)
         if (image) embed.setImage(image);
 
-        let starting = new Buttons.MessageButton()
+        let starting = new MessageButton()
             .setID("starting")
             .setLabel("First")
             .setStyle("blurple");
 
-        let back = new Buttons.MessageButton()
+        let back = new MessageButton()
             .setID("back")
             .setLabel("Previous")
             .setStyle("grey");
 
-        let next = new Buttons.MessageButton()
+        let next = new MessageButton()
             .setID("next")
             .setLabel("Next")
             .setStyle("grey");
 
-        let ending = new Buttons.MessageButton()
+        let ending = new MessageButton()
             .setID("ending")
             .setLabel("Last")
             .setStyle("blurple");
 
-        let stoppage = new Buttons.MessageButton()
+        let stoppage = new MessageButton()
             .setID("stoppage")
             .setLabel("Delete")
             .setStyle("red");
@@ -612,7 +611,10 @@ module.exports = class DiscordUtility {
                     }
                 });
                 collector.on("end", collected => {
-                    msg.edit({ embed: embed })
+                    try {
+                        await msg.edit({ embed: embed, buttons: [] })
+                    } catch (error) {
+                    }
                 })
             }
         }

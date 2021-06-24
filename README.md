@@ -491,6 +491,11 @@ message.channel.send(embed);
 ##### Example
 
 ```js
+require("discord-buttons")(client) //Must be done in your main file (usually index.js)
+//If you want to use buttons in embed.
+//Make sure to install discord buttons using `npm install discord-buttons`
+
+
 let options = {
     title: "A title",
     footer: client.user.username,
