@@ -406,6 +406,17 @@ module.exports = class DiscordUtility {
     }
 
     /**
+     * Convert ms into duration
+     * @param {Number} milliseconds Milliseconds to format into duration
+     * @param {String} format Optional. In what format you want to convert time in.
+     * @returns Duration
+     */
+
+    static formatTime(milliseconds, format = "h:mm:ss") {
+        return moment.duration(milliseconds, "milliseconds").format(format);
+    }
+
+    /**
      * Generate an embed easily using this function.
      * @param {Object} options Object containing the data for the embed.
      * @returns Discord.MessageEmbed
@@ -610,7 +621,7 @@ module.exports = class DiscordUtility {
                         await msg.delete();
                     }
                 });
-                collector.on("end", collected => {
+                collector.on("end", async(collected) => {
                     try {
                         await msg.edit({ embed: embed, buttons: [] })
                     } catch (error) {

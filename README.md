@@ -52,6 +52,7 @@ A package containing some basic and common yet important and useful utility func
 - [DiscordUtility.generateNumeral()](#discordutilitygeneratenumeral)
 - [DiscordUtility.figlet()](#discordutilityfiglet)
 - [DiscordUtility.formatDays()](#discordutilityformatdays)
+- [DiscordUtility.formatTime()](#discordutilityformattime)
 - [DiscordUtility.generateEmbed()](#discordutilitygenerateembed)
 - [DiscordUtility.createEmbedPages()](#discordutilitycreateembedpages)
 - [DiscordUtility.mongoConnect()](#discordutilitymongoconnect)
@@ -456,6 +457,20 @@ DiscordUtility.figlet("Ronak")
 ```js
 DiscordUtility.formatDays(264860372)
 //returns "3 days, 1 hours, 34 minutes and 20 seconds"
+```
+
+#### DiscordUtility.formatTime()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| milliseconds | Number | Duration ms to format |
+| format | String | Optional. Format type. Default: "h:mm:ss" |
+
+##### Example
+
+```js
+DiscordUtility.formatTime(60000)
+//returns "01:00"
 ```
 
 #### DiscordUtility.generateEmbed()
