@@ -587,6 +587,7 @@ module.exports = class DiscordUtility {
                 const filter = (button) => button.clicker.user.id === message.author.id;
                 const collector = await msg.createButtonCollector(filter, { time: 120000 });
                 collector.on("collect", async (button) => {
+                    button.defer();
                     const reactionadd = array.slice(first + perpage, second + perpage).length;
                     const reactionremove = array.slice(first - perpage, second - perpage).length;
                     if (button.id === "starting") {
