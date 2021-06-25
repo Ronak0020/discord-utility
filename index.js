@@ -5,8 +5,19 @@ const Discord = require("discord.js");
 const { MessageButton } = require("discord-buttons");
 const mongoose = require("mongoose");
 const figlet = require("figlet");
+let footerText;
 
 module.exports = class DiscordUtility {
+
+    /**
+     * Set a watermark text to view in all your embeds that have `watermark: true`
+     * @param {String} string The watermark text you want in all embeds.
+     */
+
+    static setWatermark(string) {
+        if(string.length > 100) throw new TypeError("Watermark text should not be mroe than 100 characters long!")
+        footerText = string;
+    }
 
     /**
      * Delay a process by "time" milliseconds
@@ -437,6 +448,7 @@ module.exports = class DiscordUtility {
         let embed = new Discord.MessageEmbed();
         if (title) embed.setTitle(title);
         if (description) embed.setDescription(description);
+        if(options.watermark && footerText) embed.setDescription(`${embed.description}\n\n${footerText}`)
         if (color) {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
@@ -459,6 +471,7 @@ module.exports = class DiscordUtility {
 
     static async createEmbedPages(client, message, array, options = { emojis: {} }) {
         options.emojis = options.emojis ? options.emojis : {}
+        options.buttonText = options.buttonText ? options.buttonText : {}
         let title = options.title || null,
             color = options.color || "#0000ff",
             args = options.args || false,
@@ -478,7 +491,13 @@ module.exports = class DiscordUtility {
             backward = options.emojis.backward || "◀",
             end = options.emojis.delete || "🗑",
             firstPage = options.emojis.first || "⏪",
-            lastPage = options.emojis.last || "⏩"
+            lastPage = options.emojis.last || "⏩";
+
+        let buttonNext = options.buttonText.next || "Next",
+            buttonPrev = options.buttonText.previous || "Previous",
+            buttonEnd = options.buttonText.delete || "Delete",
+            buttonFirst = options.buttonText.first || "First",
+            buttonLast = options.buttonText.last || "Last"
 
         let pageno = parseInt(args) ? args : 1;
         parseInt(args) <= Math.ceil(array.length / perpage) ? pageno : pageno = 1;
@@ -489,6 +508,7 @@ module.exports = class DiscordUtility {
         const embed = new Discord.MessageEmbed();
         embed.setColor(color)
         embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+        if(options.watermark && footerText) embed.setDescription(`${embed.description}\n\n${footerText}`);
         if (title) embed.setTitle(title)
         if (thumbnail) embed.setThumbnail(thumbnail)
         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage)
@@ -498,27 +518,27 @@ module.exports = class DiscordUtility {
 
         let starting = new MessageButton()
             .setID("starting")
-            .setLabel("First")
+            .setLabel(buttonFirst)
             .setStyle("blurple");
 
         let back = new MessageButton()
             .setID("back")
-            .setLabel("Previous")
+            .setLabel(buttonPrev)
             .setStyle("grey");
 
         let next = new MessageButton()
             .setID("next")
-            .setLabel("Next")
+            .setLabel(buttonNext)
             .setStyle("grey");
 
         let ending = new MessageButton()
             .setID("ending")
-            .setLabel("Last")
+            .setLabel(buttonLast)
             .setStyle("blurple");
 
         let stoppage = new MessageButton()
             .setID("stoppage")
-            .setLabel("Delete")
+            .setLabel(buttonEnd)
             .setStyle("red");
 
         let msg;

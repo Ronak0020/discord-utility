@@ -18,16 +18,23 @@ A package containing some basic and common yet important and useful utility func
 
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easy to make.
 
+### Updates (Last 4 updates)
+- Added Buttons Text customizations
+- Added **Watermark** for embeds
+- Added **DiscordUtility.formatTime()**
+- Added buttons support for embed pages (check *DiscordUtility.createEmbedPages()*)
+
 ### Features
 
 - Easy to use
 - Tons of premade functions to implement in your code easily
 - Includes Mongoose functions. Make bot using MongoDB easily
-- Functions are customizable such as `DiscordUtility.reactMessage()`. You can use emoji you want.
+- Functions are customizable such as `DiscordUtility.createEmbedPages()`. You can use emoji you want for navigation.
 - Support always available!
 
 ### Functions List
 
+- [DiscordUtility.setWatermark()](#discordutilitysetwatermark)
 - [DiscordUtility.delay()](#discordutilitydelay)
 - [DiscordUtility.shorten()](#discordutilityshorten)
 - [DiscordUtility.randomNumber()](#discordutilityrandomNumber)
@@ -75,6 +82,20 @@ const DiscordUtility = require("utils-discord");
 ```
 
 ### Methods
+
+#### DiscordUtility.setWatermark()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| string | String | Watermark text to add in all the embeds generated using Discordutility.generateEmbed() OR DiscordUtility.createEmbedPages() (check them below) |
+
+##### Example
+
+```js
+await DiscordUtility.setWatermark("[Support Server](link) | [Invite Me](link)");
+// return Promise
+```
+**Note: You need to use this function only once in main file. The watermark text limit is 100 characters. If not set, it will not disply watermark**
 
 #### DiscordUtility.delay()
 
@@ -487,7 +508,8 @@ let options = {
     description: "A desscription for the embed",
     footer: client.user.username,
     footerImage: client.user.displayAvatarURL()
-    color: "#0000ff"
+    color: "#0000ff",
+    watermark: true //A watermark text must be set using `DiscordUtility.setWatermark()` in main file of the bot.
 }
 let embed = DiscordUtility.generateEmbed(options);
 message.channel.send(embed);
@@ -531,6 +553,7 @@ Utils.createEmbedPages(client, message, array, options)
 // ======== Default Options for embed =========
 // null means Not set.
 options.buttons = false //make it true to use buttons instead of reactions for page navigation
+options.watermark = false //Use `DiscordUtility.setWatermark()` in main file to set a watermark and view in embeds if this is true
 options.title = null, //embed.title
 options.color = "#0000ff", //embed.color
 options.args = null, //Whether to use numbers for page navigation or not. To enable, replace "null" with the argument of the message
@@ -550,6 +573,12 @@ options.emojis.backward = "◀", //Emojis used to navigate to previous page
 options.emojis.delete = "🗑", //Emojis used to delete the embed pages message
 options.emojis.first = "⏪", //Emojis used to navigate to first page
 options.emojis.last = "⏩" //Emojis used to navigate to last page
+// =========== Button Text ===========
+options.buttonText.next = "Next",
+options.buttonText.previous = "Previous",
+options.buttonText.first = "First",
+options.buttonText.last = "Last",
+options.buttonText.delete = "Delete",
 ```
 
 ### Basic Mongoose Utils
