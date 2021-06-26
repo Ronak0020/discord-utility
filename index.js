@@ -305,6 +305,48 @@ module.exports = class DiscordUtility {
     }
 
     /**
+     * Get a channel using its name/mention/id
+     * @param {Discord.Message} message Discord.Message
+     * @param {String} toFind ID or Name or Mention of the channel
+     * @returns Discord.GuildChannel
+     */
+
+    static getChannel(message, toFind = '') {
+        toFind = toFind.toLowerCase();
+        let target = message.guild.channels.cache.get(toFind);
+        if (!target && message.mentions.channels)
+            target = message.mentions.channels.first();
+        if (!target && toFind) {
+            target = message.guild.channels.cache.find(channel => {
+                return channel.name.toLowerCase().includes(toFind.toLowerCase());
+            });
+        }
+        if (!target) return false;
+        return target;
+    }
+
+    /**
+     * Get a role using its name/mention/id
+     * @param {Discord.Message} message Discord.Message
+     * @param {String} toFind ID or Name or Mention of the role
+     * @returns Discord.Role
+     */
+
+    static getRole(message, toFind = '') {
+        toFind = toFind.toLowerCase();
+        let target = message.guild.roles.cache.get(toFind);
+        if (!target && message.mentions.roles)
+            target = message.mentions.roles.first();
+        if (!target && toFind) {
+            target = message.guild.roles.cache.find(role => {
+                return role.name.toLowerCase().includes(toFind.toLowerCase());
+            });
+        }
+        if (!target) return false;
+        return target;
+    }
+
+    /**
      * 
      * @param {Discord.Client} client Your bot client
      * @param {Discord.Message} message Discord.Message
@@ -419,12 +461,13 @@ module.exports = class DiscordUtility {
     /**
      * Convert ms into duration
      * @param {Number} milliseconds Milliseconds to format into duration
+     * @param {Boolean} trim Optional. Whether to get only time whihc is > 0 or get complete h:mm:ss format
      * @param {String} format Optional. In what format you want to convert time in.
      * @returns Duration
      */
 
-    static formatTime(milliseconds, format = "h:mm:ss") {
-        return moment.duration(milliseconds, "milliseconds").format(format);
+    static formatTime(milliseconds, trim = false, format = "h:mm:ss") {
+        return moment.duration(milliseconds, "milliseconds").format(format, {trim: trim});
     }
 
     /**
@@ -439,6 +482,8 @@ module.exports = class DiscordUtility {
         let color = options.color;
         let footer = options.footer;
         let footerImage = options.footerImage;
+        let author = options.author;
+        let authorImage = options.authorImage;
         let thumbnail = options.thumbnail;
         let image = options.image;
         let url = options.url;
@@ -453,6 +498,7 @@ module.exports = class DiscordUtility {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
         if (footer) embed.setFooter(footer, footerImage ? footerImage : null);
+        if (author) embed.setAuthor(author, authorImage ? authorImage : null);
         if (thumbnail) embed.setThumbnail(thumbnail);
         if (image) embed.setImage(image);
         if (url) embed.setURL(url);

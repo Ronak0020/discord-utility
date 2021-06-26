@@ -16,17 +16,20 @@ A package containing some basic and common yet important and useful utility func
 
 ### Introduction
 
-`utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easy to make.
+`utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
-### Updates (Last 4 updates)
-- Added Buttons Text customizations
+### Updates (Last few updates)
+- Added parameter `trim: false` in `formatTime()` (check below)
+- Added `getChannel()` and `getRole()`
+- Added Buttons Text customizations (check `createEmbedPages()`)
 - Added **Watermark** for embeds
-- Added **DiscordUtility.formatTime()**
-- Added buttons support for embed pages (check *DiscordUtility.createEmbedPages()*)
+- Added `DiscordUtility.formatTime()`
+- Added buttons support for embed pages (check `DiscordUtility.createEmbedPages()`)
 
 ### Features
 
 - Easy to use
+- Supports discord buttons
 - Tons of premade functions to implement in your code easily
 - Includes Mongoose functions. Make bot using MongoDB easily
 - Functions are customizable such as `DiscordUtility.createEmbedPages()`. You can use emoji you want for navigation.
@@ -53,6 +56,8 @@ A package containing some basic and common yet important and useful utility func
 - [DiscordUtility.formatBytes()](#discordutilityformatbytes)
 - [DiscordUtility.promptMessage()](#discordutilitypromptmessage)
 - [DiscordUtility.getMember()](#discordutilitygetmember)
+- [DiscordUtility.getChannel()](#discordutilitygetchannel)
+- [DiscordUtility.getRole()](#discordutilitygetrole)
 - [DiscordUtility.getUser()](#discordutilitygetuser)
 - [DiscordUtility.createId()](#discordutilitycreateid)
 - [DiscordUtility.generateRoman()](#discordutilitygenerateroman)
@@ -391,10 +396,39 @@ DiscordUtility.promptMessage(message, author, time, validReactions).then(async(e
 ##### Example
 
 ```js
-let message = message;
-let toFind = message.content.slice(prefix.length).trim().split(" ").slice(1).join(" "); //Use your "args" if you have defined that.
+let toFind = message.content; //Use your "args" if you have defined that.
 DiscordUtility.getMember(message, toFind);
 //returns Discord.GuildMember
+```
+
+#### DiscordUtility.getChannel()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| message | Discord.Message | Discord.Message. |
+| toFind | String | Find channel with this data. |
+
+##### Example
+
+```js
+let toFind = message.content; //Use your "args" if you have defined that.
+DiscordUtility.getChannel(message, toFind);
+//returns Discord.GuildChannel
+```
+
+#### DiscordUtility.getRole()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| message | Discord.Message | Discord.Message. |
+| toFind | String | Find role with this data. |
+
+##### Example
+
+```js
+let toFind = message.content; //Use your "args" if you have defined that.
+DiscordUtility.getRole(message, toFind);
+//returns Discord.Role
 ```
 
 #### DiscordUtility.getUser()
@@ -485,12 +519,17 @@ DiscordUtility.formatDays(264860372)
 | Parameter | Type | Description |
 | --- | --- | --- |
 | milliseconds | Number | Duration ms to format |
+| trim | Boolean | Optional. Whether to trim the duration and remove duration equal to 0 or not. Default: false |
 | format | String | Optional. Format type. Default: "h:mm:ss" |
 
 ##### Example
 
 ```js
 DiscordUtility.formatTime(60000)
+//returns "0:01:00"
+
+//When trim is true:
+DiscordUtility.formatTime(60000, true)
 //returns "01:00"
 ```
 
