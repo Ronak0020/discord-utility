@@ -97,7 +97,7 @@ const DiscordUtility = require("utils-discord");
 ##### Example
 
 ```js
-await DiscordUtility.setWatermark("[Support Server](link) | [Invite Me](link)");
+DiscordUtility.setWatermark("[Support Server](link) | [Invite Me](link)");
 // return Promise
 ```
 **Note: You need to use this function only once in main file. The watermark text limit is 100 characters. If not set, it will not disply watermark**
