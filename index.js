@@ -4,6 +4,8 @@ const no = ['no', 'n', 'nah', 'nope', 'nop', 'iie', 'いいえ', 'non', 'fuck of
 const Discord = require("discord.js");
 const { MessageButton } = require("discord-buttons");
 const mongoose = require("mongoose");
+const moment = require("moment");
+require("moment-duration-format")(moment);
 const figlet = require("figlet");
 let footerText;
 
