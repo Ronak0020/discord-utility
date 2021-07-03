@@ -590,10 +590,12 @@ module.exports = class DiscordUtility {
             .setStyle("red");
 
         let msg;
-        if (!buttons) {
+        if (array.length < perpage && !buttons) {
             msg = await message.channel.send({ embed: embed });
-        } else {
+        } else if(array.length > perpage && buttons){
             msg = await message.channel.send({ buttons: [starting, back, next, ending, stoppage], embed: embed });
+        } else {
+            msg = await message.channel.send({ embed: embed });
         }
 
         if (array.length > perpage) {
@@ -692,7 +694,7 @@ module.exports = class DiscordUtility {
                 });
                 collector.on("end", async(collected) => {
                     try {
-                        await msg.edit({ embed: embed, buttons: [] })
+                        await msg.edit({ embed: embed })
                     } catch (error) {
                     }
                 })
@@ -761,7 +763,7 @@ module.exports = class DiscordUtility {
 
     static async mongoUpdate(schema, options, value) {
         try {
-            await schema.updateOne({ options }, { "$set": value }).catch(e => {
+            await schema.updateOne(options, { "$set": value }).catch(e => {
                 throw new TypeError("Something went wrong:", e)
             })
         } catch (error) {

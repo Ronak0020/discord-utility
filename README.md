@@ -19,6 +19,7 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Fixed `mongoupdate()`
 - Added parameter `trim: false` in `formatTime()` (check below)
 - Added `getChannel()` and `getRole()`
 - Added Buttons Text customizations (check `createEmbedPages()`)
