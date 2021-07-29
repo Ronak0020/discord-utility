@@ -19,6 +19,7 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Added `DiscordUtility.isEqualArray()` and `DiscordUtility.hasCommonElements()` functions.
 - Fixed `mongoupdate()`
 - Added parameter `trim: false` in `formatTime()` (check below)
 - Added `getChannel()` and `getRole()`
@@ -45,6 +46,8 @@ A package containing some basic and common yet important and useful utility func
 - [DiscordUtility.trimArray()](#discordutilitytrimarray)
 - [DiscordUtility.shuffleArray()](#discordutilityshufflearray)
 - [DiscordUtility.removeDuplicates()](#discordutilityremoveDuplicates)
+- [DiscordUtility.isEqualArray()](#discordutilityisequalarray)
+- [DiscordUtility.hasCommonElement()](#discordutilityhascommonelement)
 - [DiscordUtility.list()](#discordutilitylist)
 - [DiscordUtility.sortByName()](#discordutilitysortbyname)
 - [DiscordUtility.firstUpperCase()](#discordutilityfirstuppercase)
@@ -186,6 +189,38 @@ DiscordUtility.shuffleArray(array, 5);
 let array = ["element1", "element1", "element2", "element3", "element4", "element4", "element4", "element5"]
 DiscordUtility.removeDuplicates(array);
 // returns ["element1", "element2", "element3", "element4", "element5"]
+```
+
+#### DiscordUtility.isEqualArray()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array1 | Array | first array to compare. |
+| array2 | Array | second array to compare. |
+
+##### Example
+
+```js
+let array1 = ["a", "b", "c"];
+let array2 = ["a", "b", "c"];
+DiscordUtility.isEqualArray(array1, array2);
+// returns true
+```
+
+#### DiscordUtility.hasCommonElement()
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| array1 | Array | first array to check. |
+| array2 | Array | second array to check. |
+
+##### Example
+
+```js
+let array1 = ["a", "b", "c"];
+let array2 = ["a", "c", "d", "e"];
+DiscordUtility.hasCommonElement(array1, array2);
+// returns ["a", "c"]
 ```
 
 #### DiscordUtility.list()

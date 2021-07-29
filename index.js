@@ -7,9 +7,12 @@ const mongoose = require("mongoose");
 const moment = require("moment");
 require("moment-duration-format")(moment);
 const figlet = require("figlet");
-let footerText;
 
 module.exports = class DiscordUtility {
+
+    constructor() {
+        this.watermark = null
+    }
 
     /**
      * Set a watermark text to view in all your embeds that have `watermark: true`
@@ -17,8 +20,8 @@ module.exports = class DiscordUtility {
      */
 
     static setWatermark(string) {
-        if(string.length > 100) throw new TypeError("Watermark text should not be mroe than 100 characters long!")
-        footerText = string;
+        if (string.length > 100) throw new TypeError("Watermark text should not be mroe than 100 characters long!")
+        this.watermark = string;
     }
 
     /**
@@ -95,6 +98,41 @@ module.exports = class DiscordUtility {
 
     static removeDuplicates(array) {
         return [...new Set(array)];
+    }
+
+    /**
+     * Check if both the arrays are exactly same.
+     * @param {Array} array1 first array to compare
+     * @param {Array} array2 second array to compare
+     * @returns Boolean
+     */
+
+    static isEqualArray(array1, array2) {
+        if (array1.length !== array2.length) return false;
+        for (i = 0; i < array1.length; i++) {
+            if (array1[i] !== array2[i]) return false;
+            return true;
+        }
+    }
+
+    /**
+     * Check for all the common elements in an array and get them.
+     * @param {Array} array1 First array to check in.
+     * @param {Array} array2 Second array to check in.
+     * @returns Array if exists else false
+     */
+
+    static hasCommonElement(array1, array2) {
+        let commons = [];
+        for (let i = 0; i < array1.length; i++) {
+            for (let j = 0; j < array2.length; j++) {
+                if (array1[i] === array2[j]) {
+                    commons.push(array1[i]);
+                }
+            }
+        }
+        if(commons.length > 0) return commons;
+        else return false;
     }
 
     /**
@@ -469,7 +507,7 @@ module.exports = class DiscordUtility {
      */
 
     static formatTime(milliseconds, trim = false, format = "h:mm:ss") {
-        return moment.duration(milliseconds, "milliseconds").format(format, {trim: trim});
+        return moment.duration(milliseconds, "milliseconds").format(format, { trim: trim });
     }
 
     /**
@@ -495,7 +533,7 @@ module.exports = class DiscordUtility {
         let embed = new Discord.MessageEmbed();
         if (title) embed.setTitle(title);
         if (description) embed.setDescription(description);
-        if(options.watermark && footerText) embed.setDescription(`${embed.description}\n\n${footerText}`)
+        if (options.watermark && this.watermark) embed.setDescription(`${embed.description}\n\n${this.watermark}`)
         if (color) {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
@@ -556,7 +594,7 @@ module.exports = class DiscordUtility {
         const embed = new Discord.MessageEmbed();
         embed.setColor(color)
         embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
-        if(options.watermark && footerText) embed.setDescription(`${embed.description}\n\n${footerText}`);
+        if (options.watermark && this.watermark) embed.setDescription(`${embed.description}\n\n${this.watermark}`);
         if (title) embed.setTitle(title)
         if (thumbnail) embed.setThumbnail(thumbnail)
         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage)
@@ -592,7 +630,7 @@ module.exports = class DiscordUtility {
         let msg;
         if (array.length < perpage && !buttons) {
             msg = await message.channel.send({ embed: embed });
-        } else if(array.length > perpage && buttons){
+        } else if (array.length > perpage && buttons) {
             msg = await message.channel.send({ buttons: [starting, back, next, ending, stoppage], embed: embed });
         } else {
             msg = await message.channel.send({ embed: embed });
@@ -692,7 +730,7 @@ module.exports = class DiscordUtility {
                         await msg.delete();
                     }
                 });
-                collector.on("end", async(collected) => {
+                collector.on("end", async (collected) => {
                     try {
                         await msg.edit({ embed: embed })
                     } catch (error) {
