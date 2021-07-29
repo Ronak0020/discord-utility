@@ -13,12 +13,12 @@
 
 <br>
 
-<a href="https://github.com/MenuDocs/utils-discord">
-<img src="https://img.shields.io/github/stars/MenuDocs/utils-discord?color=333&logo=github&style=for-the-badge" alt="Github stars">
+<a href="https://github.com/Ronak0020/discord-utility">
+<img src="https://img.shields.io/github/stars/Ronak0020/discord-utility?color=333&logo=github&style=for-the-badge" alt="Github stars">
 </a>
 
-<a href="https://github.com/MenuDocs/utils-discord/blob/master/LICENSE">
-<img src="https://img.shields.io/github/license/MenuDocs/utils-discord?color=6e5494&logo=github&style=for-the-badge" alt="License">
+<a href="https://github.com/Ronak0020/discord-utility/blob/master/LICENSE">
+<img src="https://img.shields.io/github/license/Ronak0020/discord-utility?color=6e5494&logo=github&style=for-the-badge" alt="License">
 </a>
   </p>
 </div>
