@@ -131,7 +131,7 @@ module.exports = class DiscordUtility {
                 }
             }
         }
-        if(commons.length > 0) return commons;
+        if (commons.length > 0) return commons;
         else return false;
     }
 
@@ -489,13 +489,35 @@ module.exports = class DiscordUtility {
      */
 
     static formatDays(unicode) {
-        let totalSeconds = (unicode / 1000);
-        let days = Math.floor(totalSeconds / 86400);
-        let hours = Math.floor(totalSeconds / 60 / 60 % 24);
-        totalSeconds %= 3600;
-        let minutes = Math.floor(totalSeconds / 60);
-        let seconds = Math.floor(totalSeconds % 60);
-        return `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+        const roundTowardsZero = unicode > 0 ? Math.floor : Math.ceil;
+        const days = roundTowardsZero(unicode / 86400000),
+            hours = roundTowardsZero(unicode / 3600000) % 24,
+            minutes = roundTowardsZero(unicode / 60000) % 60;
+        let seconds = roundTowardsZero(unicode / 1000) % 60;
+        if (seconds === 0) seconds++;
+        const isDay = days > 0,
+            isHour = hours > 0,
+            isMinute = minutes > 0;
+        const dayUnit =
+            days < 2 ? "day" : "days",
+            hourUnit =
+                hours < 2 ? "hour" : "hours",
+            minuteUnit =
+                minutes < 2 ? "minute" : "minutes",
+            secondUnit =
+                seconds < 2 ? "second" : "seconds";
+
+        const pattern =
+            (!isDay ? '' : `{days} ${dayUnit}, `) +
+            (!isHour ? '' : `{hours} ${hourUnit}, `) +
+            (!isMinute ? '' : `{minutes} ${minuteUnit}, `) +
+            `{seconds} ${secondUnit}`;
+        const content = pattern
+            .replace('{days}', days.toString())
+            .replace('{hours}', hours.toString())
+            .replace('{minutes}', minutes.toString())
+            .replace('{seconds}', seconds.toString());
+        return content;
     }
 
     /**
