@@ -109,7 +109,7 @@ module.exports = class DiscordUtility {
 
     static isEqualArray(array1, array2) {
         if (array1.length !== array2.length) return false;
-        for (i = 0; i < array1.length; i++) {
+        for (let i = 0; i < array1.length; i++) {
             if (array1[i] !== array2[i]) return false;
             return true;
         }
@@ -695,7 +695,7 @@ module.exports = class DiscordUtility {
                 const filter = (button) => button.clicker.user.id === message.author.id;
                 const collector = await msg.createButtonCollector(filter, { time: 120000 });
                 collector.on("collect", async (button) => {
-                    button.defer();
+                    button.reply.defer();
                     const reactionadd = array.slice(first + perpage, second + perpage).length;
                     const reactionremove = array.slice(first - perpage, second - perpage).length;
                     if (button.id === "starting") {
@@ -732,7 +732,7 @@ module.exports = class DiscordUtility {
                 });
                 collector.on("end", async (collected) => {
                     try {
-                        await msg.edit({ embed: embed })
+                        await msg.edit({ embed: embed, buttons: [] })
                     } catch (error) {
                     }
                 })

@@ -4,7 +4,7 @@
     </p>
   <p>
     <a href="https://www.npmjs.com/package/utils-discord">
-<img src="https://img.shields.io/npm/dw/utils-discord?color=CC3534&logo=npm&style=for-the-badge" alt="Downloads">
+<img src="https://img.shields.io/npm/dt/utils-discord?color=CC3534&logo=npm&style=for-the-badge" alt="Downloads">
 </a>
 
 <a href="https://www.npmjs.com/package/utils-discord">
@@ -34,14 +34,13 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Fixed small bugs
 - Added `DiscordUtility.isEqualArray()` and `DiscordUtility.hasCommonElements()` functions.
 - Fixed `mongoupdate()`
 - Added parameter `trim: false` in `formatTime()` (check below)
 - Added `getChannel()` and `getRole()`
 - Added Buttons Text customizations (check `createEmbedPages()`)
 - Added **Watermark** for embeds
-- Added `DiscordUtility.formatTime()`
-- Added buttons support for embed pages (check `DiscordUtility.createEmbedPages()`)
 
 ### Features
 
