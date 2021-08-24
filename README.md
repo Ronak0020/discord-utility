@@ -34,6 +34,7 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Added **header** option in `DiscordUtility.createEmbedPages()` to show a particular text in every embed pages at top
 - Enhanced `DicordUtility.formatDays` (now checks for plural *day/days, hour/hours, etc* and doesn't show the ones that are 0 *if days is 0, it will only show hours, min and seconds*)
 - Fixed small bugs
 - Added `DiscordUtility.isEqualArray()` and `DiscordUtility.hasCommonElements()` functions.
@@ -643,6 +644,7 @@ Utils.createEmbedPages(client, message, array, options)
 // ======== Default Options for embed =========
 // null means Not set.
 options.buttons = false //make it true to use buttons instead of reactions for page navigation
+options.header = null //Text that you want to be shown in every page of the embed pages. (description at the top)
 options.watermark = false //Use `DiscordUtility.setWatermark()` in main file to set a watermark and view in embeds if this is true
 options.title = null, //embed.title
 options.color = "#0000ff", //embed.color

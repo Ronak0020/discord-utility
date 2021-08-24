@@ -1,7 +1,7 @@
 {
   "name": "utils-discord",
   "description": "A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, Mongoose Funtions, Create Embed Pages etc.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -581,6 +581,7 @@ module.exports = class DiscordUtility {
         options.emojis = options.emojis ? options.emojis : {}
         options.buttonText = options.buttonText ? options.buttonText : {}
         let title = options.title || null,
+            header = options.header || null,
             color = options.color || "#0000ff",
             args = options.args || false,
             joinBy = options.joinBy || "\n",
@@ -615,7 +616,7 @@ module.exports = class DiscordUtility {
 
         const embed = new Discord.MessageEmbed();
         embed.setColor(color)
-        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
         if (options.watermark && this.watermark) embed.setDescription(`${embed.description}\n\n${this.watermark}`);
         if (title) embed.setTitle(title)
         if (thumbnail) embed.setThumbnail(thumbnail)
@@ -679,7 +680,7 @@ module.exports = class DiscordUtility {
 
                         first += perpage;
                         second += perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed });
                     } else if (r.emoji.name === backward && reactionremove !== 0) {
@@ -687,7 +688,7 @@ module.exports = class DiscordUtility {
                         pageno--
                         first -= perpage;
                         second -= perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === firstPage) {
@@ -695,7 +696,7 @@ module.exports = class DiscordUtility {
                         pageno = 1;
                         first = 0;
                         second = perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === lastPage) {
@@ -703,7 +704,7 @@ module.exports = class DiscordUtility {
                         pageno = Math.ceil(array.length / perpage);
                         first = (pageno * perpage) - perpage;
                         second = pageno * perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === end) {
@@ -724,28 +725,28 @@ module.exports = class DiscordUtility {
                         pageno = 1;
                         first = 0;
                         second = perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
                     } else if (button.id === "back" && reactionremove !== 0) {
                         pageno--
                         first -= perpage;
                         second -= perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
                     } else if (button.id === "next" && reactionadd !== 0) {
                         pageno++
                         first += perpage;
                         second += perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
                     } else if (button.id === "ending") {
                         pageno = Math.ceil(array.length / perpage);
                         first = (pageno * perpage) - perpage;
                         second = pageno * perpage;
-                        embed.setDescription(`${array.slice(first, second).join(joinBy)}`);
+                        embed.setDescription(`${header ? `${header}\n\n` : ""}${array.slice(first, second).join(joinBy)}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ buttons: [starting, back, next, ending, stoppage], embed: embed })
                     } else if (button.id === "stoppage") {
