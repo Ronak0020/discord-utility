@@ -34,6 +34,7 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Fixed few commands not working with *slash commands*
 - Supports both Discord.js v12 and Discord.js v13!
 - Removed `DiscordUtility.setWatermark()` and added `DiscordUtility.defaultEmbed()` to set watermark, header, default color, footer, etc.
 - Added **header** option in `DiscordUtility.createEmbedPages()` to show a particular text in every embed pages at top
@@ -41,8 +42,6 @@ A package containing some basic and common yet important and useful utility func
 - Fixed small bugs
 - Added `DiscordUtility.isEqualArray()` and `DiscordUtility.hasCommonElements()` functions.
 - Fixed `mongoupdate()`
-- Added parameter `trim: false` in `formatTime()` (check below)
-- Added `getChannel()` and `getRole()`
 
 ### Features
 

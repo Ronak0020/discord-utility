@@ -286,12 +286,12 @@ module.exports = class DiscordUtility {
      */
 
     static async awaitPlayers(msg, join, emoji, max, min = 1) {
-        if (max === 1) return [msg.author.id];
+        if (max === 1) return [msg.member.user.id];
         await msg.channel.send(
             `You will need at least ${min - 1} more player(s) (at max ${max - 1}). To join, type \`${join}\`.`
         );
         const joined = [];
-        joined.push(msg.author.id);
+        joined.push(msg.member.user.id);
         const filter = async (res) => {
             if (res.author.bot) return false;
             if (joined.includes(res.author.id)) return false;
@@ -369,7 +369,7 @@ module.exports = class DiscordUtility {
     static getChannel(message, toFind = '') {
         toFind = toFind.toLowerCase();
         let target = message.guild.channels.cache.get(toFind);
-        if (!target && message.mentions.channels)
+        if (!target && message.mentions?.channels)
             target = message.mentions.channels.first();
         if (!target && toFind) {
             target = message.guild.channels.cache.find(channel => {
@@ -390,7 +390,7 @@ module.exports = class DiscordUtility {
     static getRole(message, toFind = '') {
         toFind = toFind.toLowerCase();
         let target = message.guild.roles.cache.get(toFind);
-        if (!target && message.mentions.roles)
+        if (!target && message.mentions?.roles)
             target = message.mentions.roles.first();
         if (!target && toFind) {
             target = message.guild.roles.cache.find(role => {
@@ -566,11 +566,12 @@ module.exports = class DiscordUtility {
         let fields = options.fields;
         let header = options.header || this.defaultEmbed.header;
         let timestamp = options.timestamp || this.defaultEmbed.timestamp;
+        let watermark = this.defaultEmbed.watermark || null,
 
         let embed = new Discord.MessageEmbed();
         if (title) embed.setTitle(title);
         if (description) embed.setDescription(description);
-        if (options.watermark && this.defaultEmbed.watermark) embed.setDescription(`${embed.description}\n\n${this.watermark}`)
+        if (options.watermark && this.defaultEmbed.watermark) embed.setDescription(`${embed.description}\n\n${watermark ? `\n\n${watermark}` : ""}`)
         if (color) {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
@@ -611,7 +612,7 @@ module.exports = class DiscordUtility {
             timestamp = options.timestamp || this.defaultEmbed.timestamp || null,
             buttons = options.buttons || false,
             watermark = this.defaultEmbed.watermark || null,
-            user = options.user || message.author;
+            user = options.user || message.member.user;
 
         let forward = options.emojis.forward || "▶",
             backward = options.emojis.backward || "◀",
@@ -634,7 +635,7 @@ module.exports = class DiscordUtility {
         const embed = new Discord.MessageEmbed();
         embed.setColor(color)
         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}`);
-        if (options.watermark && watermark) embed.setDescription(`${embed.description}\n\n${watermark}`);
+        if (options.watermark && watermark) embed.setDescription(`${embed.description}\n\n${watermark ? `\n\n${watermark}` : ""}`);
         if (title) embed.setTitle(title)
         if (thumbnail) embed.setThumbnail(thumbnail)
         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage)
@@ -693,7 +694,7 @@ module.exports = class DiscordUtility {
 
                     if (r.emoji.name === forward && reactionadd !== 0) {
                         pageno++
-                        r.users.remove(message.author.id);
+                        r.users.remove(message.member.user.id);
 
                         first += perpage;
                         second += perpage;
@@ -701,7 +702,7 @@ module.exports = class DiscordUtility {
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed });
                     } else if (r.emoji.name === backward && reactionremove !== 0) {
-                        r.users.remove(message.author.id);
+                        r.users.remove(message.member.user.id);
                         pageno--
                         first -= perpage;
                         second -= perpage;
@@ -709,7 +710,7 @@ module.exports = class DiscordUtility {
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === firstPage) {
-                        r.users.remove(message.author.id);
+                        r.users.remove(message.member.user.id);
                         pageno = 1;
                         first = 0;
                         second = perpage;
@@ -717,7 +718,7 @@ module.exports = class DiscordUtility {
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === lastPage) {
-                        r.users.remove(message.author.id);
+                        r.users.remove(message.member.user.id);
                         pageno = Math.ceil(array.length / perpage);
                         first = (pageno * perpage) - perpage;
                         second = pageno * perpage;
@@ -732,7 +733,7 @@ module.exports = class DiscordUtility {
                     if (reason === "time") msg.reactions.removeAll();
                 })
             } else {
-                const filter = (button) => button.user.id === message.author.id;
+                const filter = (button) => button.user.id === message.member.user.id;
                 const collector = await msg.channel.createMessageComponentCollector({ filter,  time: 120000 });
                 collector.on("collect", async (button) => {
                     await button.deferUpdate();
