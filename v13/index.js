@@ -566,7 +566,7 @@ module.exports = class DiscordUtility {
         let fields = options.fields;
         let header = options.header || this.defaultEmbed.header;
         let timestamp = options.timestamp || this.defaultEmbed.timestamp;
-        let watermark = this.defaultEmbed.watermark || null,
+        let watermark = this.defaultEmbed.watermark || null;
 
         let embed = new Discord.MessageEmbed();
         if (title) embed.setTitle(title);
