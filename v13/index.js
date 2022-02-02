@@ -556,8 +556,8 @@ module.exports = class DiscordUtility {
         let description = options.description;
         let title = options.title;
         let color = options.color || this.defaultEmbed.color;
-        let footer = options.footer || this.defaultEmbed.footer;
-        let footerImage = options.footerImage || this.defaultEmbed.footerImage;
+        let footer = options.footer || this.defaultEmbed.footer || null;
+        let footerImage = options.footerImage || this.defaultEmbed.footerImage || null;
         let author = options.author || this.defaultEmbed.author;
         let authorImage = options.authorImage || this.defaultEmbed.authorImage;
         let thumbnail = options.thumbnail || this.defaultEmbed.thumbnail;
@@ -568,7 +568,12 @@ module.exports = class DiscordUtility {
         let timestamp = options.timestamp || this.defaultEmbed.timestamp;
         let watermark = this.defaultEmbed.watermark || null;
 
-        let embed = new Discord.MessageEmbed();
+        let embed = new Discord.MessageEmbed({
+            footer: {
+                text: footer,
+                iconURL: footerImage
+            }
+        });
         if (title) embed.setTitle(title);
         if (description) embed.setDescription(description);
         if (options.watermark && this.defaultEmbed.watermark) embed.setDescription(`${embed.description}\n\n${watermark ? `\n\n${watermark}` : ""}`)
@@ -576,7 +581,6 @@ module.exports = class DiscordUtility {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
         if(header) embed.setDescription(`${options.header}${embed.description}`);
-        if (footer) embed.setFooter(footer, footerImage ? footerImage : null);
         if (author) embed.setAuthor(author, authorImage ? authorImage : null);
         if (thumbnail) embed.setThumbnail(thumbnail);
         if (image) embed.setImage(image);
@@ -624,7 +628,13 @@ module.exports = class DiscordUtility {
             buttonPrev = options.buttonText.previous || "Previous",
             buttonEnd = options.buttonText.delete || "Delete",
             buttonFirst = options.buttonText.first || "First",
-            buttonLast = options.buttonText.last || "Last"
+            buttonLast = options.buttonText.last || "Last";
+
+        let id1 = this.createId(5);
+        let id2 = this.createId(5);
+        let id3 = this.createId(5);
+        let id4 = this.createId(5);
+        let id5 = this.createId(5);
 
         let pageno = parseInt(args) ? args : 1;
         parseInt(args) <= Math.ceil(array.length / perpage) ? pageno : pageno = 1;
@@ -632,7 +642,12 @@ module.exports = class DiscordUtility {
         let first = !isNaN(parseInt(args)) ? perpage * (parseInt(pageno) - 1) : 0;
         let second = !isNaN(parseInt(args)) ? perpage * parseInt(pageno) : perpage;
 
-        const embed = new Discord.MessageEmbed();
+        const embed = new Discord.MessageEmbed({
+            footer: {
+                text: footer,
+                iconURL: footerImage
+            }
+        });
         embed.setColor(color)
         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}`);
         if (options.watermark && watermark) embed.setDescription(`${embed.description}\n\n${watermark ? `\n\n${watermark}` : ""}`);
@@ -644,27 +659,27 @@ module.exports = class DiscordUtility {
         if (image) embed.setImage(image);
 
         let starting = new Discord.MessageButton()
-            .setCustomId("starting")
+            .setCustomId(id1)
             .setLabel(buttonFirst)
             .setStyle("PRIMARY");
 
         let back = new Discord.MessageButton()
-            .setCustomId("back")
+            .setCustomId(id2)
             .setLabel(buttonPrev)
             .setStyle("SECONDARY");
 
         let next = new Discord.MessageButton()
-            .setCustomId("next")
+            .setCustomId(id3)
             .setLabel(buttonNext)
             .setStyle("SECONDARY");
 
         let ending = new Discord.MessageButton()
-            .setCustomId("ending")
+            .setCustomId(id4)
             .setLabel(buttonLast)
             .setStyle("PRIMARY");
 
         let stoppage = new Discord.MessageButton()
-            .setCustomId("stoppage")
+            .setCustomId(id5)
             .setLabel(buttonEnd)
             .setStyle("DANGER");
 
@@ -739,35 +754,35 @@ module.exports = class DiscordUtility {
                     await button.deferUpdate();
                     const reactionadd = array.slice(first + perpage, second + perpage).length;
                     const reactionremove = array.slice(first - perpage, second - perpage).length;
-                    if (button.customId === "starting") {
+                    if (button.customId === id1) {
                         pageno = 1;
                         first = 0;
                         second = perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
-                    } else if (button.customId === "back" && reactionremove !== 0) {
+                    } else if (button.customId === id2 && reactionremove !== 0) {
                         pageno--
                         first -= perpage;
                         second -= perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
-                    } else if (button.customId === "next" && reactionadd !== 0) {
+                    } else if (button.customId === id3 && reactionadd !== 0) {
                         pageno++
                         first += perpage;
                         second += perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
-                    } else if (button.customId === "ending") {
+                    } else if (button.customId === id4) {
                         pageno = Math.ceil(array.length / perpage);
                         first = (pageno * perpage) - perpage;
                         second = pageno * perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
                         embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
-                    } else if (button.customId === "stoppage") {
+                    } else if (button.customId === id5) {
                         await msg.delete();
                     }
                 });
@@ -793,8 +808,8 @@ module.exports = class DiscordUtility {
      * @returns Promise Connection to your MongoDB database
      */
 
-    static mongoConnect(url) {
-        return mongoose.connect(url, {
+    static async mongoConnect(url) {
+        return await mongoose.connect(url, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
