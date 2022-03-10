@@ -29,15 +29,15 @@ module.exports = class DiscordUtility {
      */
 
     static defaultEmbed(options) {
-        if(options.watermark) this.defaultEmbed.watermark = options.watermark;
-        if(options.footer) this.defaultEmbed.footer = options.footer;
-        if(options.footerImage) this.defaultEmbed.footerImage = options.footerImage;
-        if(options.timestamp) this.defaultEmbed.timestamp = options.timestamp;
-        if(options.author) this.defaultEmbed.author = options.author;
-        if(options.authorImage) this.defaultEmbed.authorImage = options.authorImage;
-        if(options.thumbnail) this.defaultEmbed.thumbnail = options.thumbnail;
-        if(options.header) this.defaultEmbed.header = options.header;
-        if(options.color) this.defaultEmbed.color = options.color;
+        if (options.watermark) this.defaultEmbed.watermark = options.watermark;
+        if (options.footer) this.defaultEmbed.footer = options.footer;
+        if (options.footerImage) this.defaultEmbed.footerImage = options.footerImage;
+        if (options.timestamp) this.defaultEmbed.timestamp = options.timestamp;
+        if (options.author) this.defaultEmbed.author = options.author;
+        if (options.authorImage) this.defaultEmbed.authorImage = options.authorImage;
+        if (options.thumbnail) this.defaultEmbed.thumbnail = options.thumbnail;
+        if (options.header) this.defaultEmbed.header = options.header;
+        if (options.color) this.defaultEmbed.color = options.color;
     }
 
     /**
@@ -240,7 +240,8 @@ module.exports = class DiscordUtility {
             return (user ? res.author.id === user.id : true)
                 && (yes.includes(value) || no.includes(value) || extraYes.includes(value) || extraNo.includes(value));
         };
-        const verify = await channel.awaitMessages({ filter,
+        const verify = await channel.awaitMessages({
+            filter,
             max: 1,
             time
         });
@@ -300,7 +301,7 @@ module.exports = class DiscordUtility {
             await this.reactMessage(res, res.author, emoji, '✅');
             return true;
         };
-        const verify = await msg.channel.awaitMessages({filter, max: max - 1, time: 60000 });
+        const verify = await msg.channel.awaitMessages({ filter, max: max - 1, time: 60000 });
         verify.set(msg.id, msg);
         if (verify.size < min) return false;
         return verify.map(player => player.author.id);
@@ -333,7 +334,7 @@ module.exports = class DiscordUtility {
         for (const reaction of validReactions) await message.react(reaction);
         const filter = (reaction, user) => validReactions.includes(reaction.emoji.name) && user.id === author.id;
         return message
-            .awaitReactions({filter, max: 1, time: time })
+            .awaitReactions({ filter, max: 1, time: time })
             .then(collected => collected.first() && collected.first().emoji.name);
     }
 
@@ -580,7 +581,7 @@ module.exports = class DiscordUtility {
         if (color) {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
-        if(header) embed.setDescription(`${options.header}${embed.description}`);
+        if (header) embed.setDescription(`${options.header}${embed.description}`);
         if (author) embed.setAuthor(author, authorImage ? authorImage : null);
         if (thumbnail) embed.setThumbnail(thumbnail);
         if (image) embed.setImage(image);
@@ -653,7 +654,7 @@ module.exports = class DiscordUtility {
         if (options.watermark && watermark) embed.setDescription(`${embed.description}\n\n${watermark ? `\n\n${watermark}` : ""}`);
         if (title) embed.setTitle(title)
         if (thumbnail) embed.setThumbnail(thumbnail)
-        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage)
+        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage })
         if (timestamp) embed.setTimestamp();
         if (author) embed.setAuthor(author, authorImage)
         if (image) embed.setImage(image);
@@ -700,7 +701,8 @@ module.exports = class DiscordUtility {
                 await msg.react(lastPage);
                 await msg.react(end);
 
-                const collector = msg.createReactionCollector({ filter: (reaction, member) => member.id === user.id,
+                const collector = msg.createReactionCollector({
+                    filter: (reaction, member) => member.id === user.id,
                     time: 120000
                 });
                 collector.on('collect', async (r) => {
@@ -714,7 +716,7 @@ module.exports = class DiscordUtility {
                         first += perpage;
                         second += perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ embed: embed });
                     } else if (r.emoji.name === backward && reactionremove !== 0) {
                         r.users.remove(message.member.user.id);
@@ -722,7 +724,7 @@ module.exports = class DiscordUtility {
                         first -= perpage;
                         second -= perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === firstPage) {
                         r.users.remove(message.member.user.id);
@@ -730,7 +732,7 @@ module.exports = class DiscordUtility {
                         first = 0;
                         second = perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === lastPage) {
                         r.users.remove(message.member.user.id);
@@ -738,7 +740,7 @@ module.exports = class DiscordUtility {
                         first = (pageno * perpage) - perpage;
                         second = pageno * perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ embed: embed })
                     } else if (r.emoji.name === end) {
                         await msg.delete();
@@ -749,7 +751,7 @@ module.exports = class DiscordUtility {
                 })
             } else {
                 const filter = (button) => button.user.id === message.member.user.id;
-                const collector = await msg.channel.createMessageComponentCollector({ filter,  time: 120000 });
+                const collector = await msg.createMessageComponentCollector({ filter, time: 120000 });
                 collector.on("collect", async (button) => {
                     await button.deferUpdate();
                     const reactionadd = array.slice(first + perpage, second + perpage).length;
@@ -759,28 +761,28 @@ module.exports = class DiscordUtility {
                         first = 0;
                         second = perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
                     } else if (button.customId === id2 && reactionremove !== 0) {
                         pageno--
                         first -= perpage;
                         second -= perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
                     } else if (button.customId === id3 && reactionadd !== 0) {
                         pageno++
                         first += perpage;
                         second += perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
                     } else if (button.customId === id4) {
                         pageno = Math.ceil(array.length / perpage);
                         first = (pageno * perpage) - perpage;
                         second = pageno * perpage;
                         embed.setDescription(`${header ? `${header}` : ""}${array.slice(first, second).join(joinBy)}${watermark ? `\n\n${watermark}` : ""}`);
-                        embed.setFooter(`${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, footerImage);
+                        embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage });
                         msg.edit({ components: [new Discord.MessageActionRow().addComponents([starting, back, next, ending, stoppage])], embeds: [embed] })
                     } else if (button.customId === id5) {
                         await msg.delete();

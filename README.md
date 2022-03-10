@@ -34,6 +34,7 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Fixed `createEmbedPages()` now able to make more than 1 embed page in a channel (when `buttons: true` parameter is passed)
 - Fixes in `generateEmbed()` and `createEmbedPages()`
 - Fixed few commands not working with *slash commands*
 - Supports both Discord.js v12 and Discord.js v13!
@@ -41,7 +42,6 @@ A package containing some basic and common yet important and useful utility func
 - Added **header** option in `DiscordUtility.createEmbedPages()` to show a particular text in every embed pages at top
 - Enhanced `DicordUtility.formatDays` (now checks for plural *day/days, hour/hours, etc* and doesn't show the ones that are 0 *if days is 0, it will only show hours, min and seconds*)
 - Fixed small bugs
-- Added `DiscordUtility.isEqualArray()` and `DiscordUtility.hasCommonElements()` functions.
 
 ### Features
 
