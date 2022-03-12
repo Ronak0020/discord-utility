@@ -898,9 +898,9 @@ module.exports = class DiscordUtility {
             await newSchema.save().catch(e => {
                 throw new TypeError("Something went wrong:", e)
             })
+            return newSchema;
         } catch (error) {
             throw new TypeError("Something wet wrong:", error)
         }
-        return true;
     }
 }
