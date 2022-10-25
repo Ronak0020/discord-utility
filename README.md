@@ -34,19 +34,16 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Added v14 support
 - Fixed `mongoCreate()` not returning the created data.
 - Fixed `createEmbedPages()` now able to make more than 1 embed page in a channel (when `buttons: true` parameter is passed)
 - Fixes in `generateEmbed()` and `createEmbedPages()`
 - Fixed few commands not working with *slash commands*
-- Supports both Discord.js v12 and Discord.js v13!
-- Removed `DiscordUtility.setWatermark()` and added `DiscordUtility.defaultEmbed()` to set watermark, header, default color, footer, etc.
-- Added **header** option in `DiscordUtility.createEmbedPages()` to show a particular text in every embed pages at top
-- Enhanced `DicordUtility.formatDays` (now checks for plural *day/days, hour/hours, etc* and doesn't show the ones that are 0 *if days is 0, it will only show hours, min and seconds*)
 
 ### Features
 
 - Easy to use
-- Supports Discord.js v12 and v13 _**For users using discord.js v12, make sure to install `discord-buttons` (`npm i discord-buttons`)**_
+- Supports Discord.js v12 and v13 **and v14** _**For users using discord.js v12, make sure to install `discord-buttons` (`npm i discord-buttons`)**_
 - Supports discord buttons (both discord.js v12 and v13)
 - Tons of premade functions to implement in your code easily
 - Includes Mongoose functions. Make bot using MongoDB easily
@@ -68,8 +65,7 @@ const DiscordUtility = require("utils-discord");
 
 ### Functions List and Documentation
 
-- *For Discord.js v12, go to [Discord.js v12-Support Docs](v12/README.md#functionslist)*
-- *For Discord.js v13, go to [Discord.js v13-Support Docs](v13/README.md#functionslist)*
+- *For Documentation, head over to [Documentations](Documentation.md#functions-list)*
 
 
 ## Support
