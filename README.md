@@ -25,7 +25,7 @@
 
 # Discord-Utility
 
-A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc. <p style="color:red">**This package supports both Discord.js v12 and Discord.js v13**</p>
+A package containing some basic and common yet important and useful utility functions such as Shuffle Array, Remove Duplicates, Verification, etc. <p style="color:red">**This package supports both Discord.js v12 and Discord.js v13 AND v14**</p>
 
 > ##### If you encounter any bugs, feel free to open an issue ticket in github
 
@@ -34,6 +34,7 @@ A package containing some basic and common yet important and useful utility func
 `utils-discord` is a module especially made for discord.js bot development to make the development easy by providing important utility functions premade. utils-discord is easy to use and makes your code become shorter and easier to make bots.
 
 ### Updates (Last few updates)
+- Fix `author` parameter in `generateEmbed()` and `createEmbedPages()`
 - Added v14 support
 - Fixed `mongoCreate()` not returning the created data.
 - Fixed `createEmbedPages()` now able to make more than 1 embed page in a channel (when `buttons: true` parameter is passed)

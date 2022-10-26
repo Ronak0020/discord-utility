@@ -582,7 +582,10 @@ module.exports = class DiscordUtility {
             embed.setColor(color);
         } else embed.setColor("#FF0000");
         if (header) embed.setDescription(`${options.header}${embed.description}`);
-        if (author) embed.setAuthor(author, authorImage ? authorImage : null);
+        if (author) embed.setAuthor({
+            name: author,
+            iconURL: authorImage ? authorImage : null
+        });
         if (thumbnail) embed.setThumbnail(thumbnail);
         if (image) embed.setImage(image);
         if (url) embed.setURL(url);
@@ -656,7 +659,10 @@ module.exports = class DiscordUtility {
         if (thumbnail) embed.setThumbnail(thumbnail)
         embed.setFooter({ text: `${footer} | Page: ${pageno}/${Math.ceil(array.length / perpage)}`, iconURL: footerImage })
         if (timestamp) embed.setTimestamp();
-        if (author) embed.setAuthor(author, authorImage)
+        if (author) embed.setAuthor({
+            name: author,
+            iconURL: authorImage
+        })
         if (image) embed.setImage(image);
 
         let starting = new Discord.ButtonBuilder()
